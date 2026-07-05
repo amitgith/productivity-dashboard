@@ -72,8 +72,8 @@
         <!-- task box -->
         <div class="task-box">
           <div class="form-data">
-            <form action="" id="form-conatiner">
-              <input type="text" id="task1" placeholder="Enter Task" />
+            <form action="" id="form-container">
+              <input type="text" id="task" placeholder="Enter Task" />
               <textarea placeholder="Enter Details" id="details"></textarea>
               <div>
                 <input type="checkbox" id="check" />
@@ -83,6 +83,28 @@
             </form>
           </div>
           <div class="todo-list"></div>
+        </div>
+      </div>
+      <!-- Your Daily Goal list -->
+      <div class="goal-container">
+        <!-- Heading -->
+        <div class="goal-heading">
+          <h1>Daily Goals</h1>
+          <div class="goal-close"><h2>x</h2></div>
+        </div>
+        <!-- task box -->
+        <div class="goal-box">
+          <div class="goal-data">
+            <form action="" id="form-goal-container">
+              <input type="text" id="goal" placeholder="Enter goals" />
+              <textarea
+                placeholder="Enter your Goals"
+                id="detailsgoal"
+              ></textarea>
+              <button class="goal-add" id="adding">All Goals</button>
+            </form>
+          </div>
+          <div class="goal-list"></div>
         </div>
       </div>
     </main>

@@ -125,7 +125,7 @@ main {
   background-color: red;
   border-radius: 1rem;
 }
-#form-conatiner {
+#form-container {
   display: flex;
   flex-direction: column;
   gap: 2rem;
@@ -196,5 +196,117 @@ sup {
   cursor: pointer;
 }
 .btn:hover {
+  background-color: blue;
+}
+
+/* goal styling */
+.goal-container {
+  height: 100%;
+  width: 100%;
+  display: none;
+  background-color: white;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.goal-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 4rem;
+}
+.goal-heading h1 {
+  font-size: 3rem;
+}
+.goal-close {
+  background-color: grey;
+  border-radius: 1rem;
+}
+.goal-close h2 {
+  font-size: 3rem;
+  padding: 0.5rem;
+  cursor: pointer;
+}
+.goal-box {
+  height: 80%;
+  width: 100%;
+  /* background-color: crimson; */
+  display: flex;
+  gap: 2rem;
+  padding: 0 3.5rem;
+}
+.goal-data {
+  height: 100%;
+  width: 40%;
+  background-color: red;
+  border-radius: 1rem;
+}
+#form-goal-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 2rem 1rem 0 1rem;
+}
+input[type="text"] {
+  padding: 1rem;
+  outline: none;
+}
+textarea {
+  padding: 1rem 0 5rem 1rem;
+  outline: none;
+}
+.goal-add {
+  cursor: pointer;
+  padding: 1rem;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  border-radius: 0.5rem;
+  background-color: rgb(22, 180, 233);
+}
+.goal-add:hover {
+  background-color: blue;
+}
+
+.goal-list {
+  height: 100%;
+  width: 60%;
+  background-color: yellow;
+  border-radius: 1rem;
+}
+.li {
+  display: flex;
+  align-items: center;
+  gap: 5rem;
+  justify-content: space-between;
+  background-color: green;
+  margin: 1rem;
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+.li h3 {
+  font-size: 1.8rem;
+  color: white;
+}
+
+.li p {
+  font-size: 1.8rem;
+  color: white;
+}
+.btns {
+  display: flex;
+  gap: 1rem;
+}
+.btn1 {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: rgba(0, 0, 255, 0.299);
+  color: white;
+  cursor: pointer;
+}
+.btn1:hover {
   background-color: blue;
 }
