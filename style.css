@@ -83,6 +83,57 @@ main {
   border-radius: 50%;
   cursor: pointer;
 }
+
+/* Your Motivational Quotes styling */
+.quote-parent {
+  height: 100%;
+  width: 100%;
+  background-color: white;
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.quote-close {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  padding: 1rem;
+}
+.quote-close h2 {
+  font-size: 3rem;
+  cursor: pointer;
+}
+.quote-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.quote-box {
+  height: 30%;
+  width: 70%;
+  background-color: green;
+  border-radius: 0.5rem;
+  padding: 1rem;
+}
+.quote-api {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+blockquote {
+  width: 100%;
+  font-size: 1.5rem;
+  font-weight: 600;
+  max-width: 900px;
+}
+cite {
+  font-weight: 600;
+}
 /* Your Personalised task list styling */
 .task-container {
   height: 100%;

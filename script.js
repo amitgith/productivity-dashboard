@@ -137,10 +137,10 @@ form2.addEventListener("submit", (events) => {
   if (updateIndex1 !== null) {
     goalData[updateIndex1] = obj1;
     updateIndex1 = null;
-    localStorage.setItem("goals", JSON.stringify(task1Data));
+    localStorage.setItem("goals", JSON.stringify(goalData));
   } else {
     goalData.push(obj1);
-    localStorage.setItem("goals", JSON.stringify(task1Data));
+    localStorage.setItem("goals", JSON.stringify(goalData));
   }
 
   goalUi();
@@ -150,7 +150,7 @@ form2.addEventListener("submit", (events) => {
 
 const deleteGoal = (index) => {
   goalData.splice(index, 1);
-  localStorage.setItem("goals", JSON.stringify(task1Data));
+  localStorage.setItem("goals", JSON.stringify(goalData));
   goalUi();
 };
 
@@ -161,15 +161,35 @@ const editGoal = (name) => {
   form2[1].value = goal.text1;
 };
 
-// let data = [
-//   {
-//     name: "Amit",
-//     age: 26,
-//   },
-// ];
+// Motivational Quotes in clicked
+const motivateBox = document.querySelector(".quote-parent");
+const motivateImgBtn = document.querySelector(".motivate");
+const motivateClose = document.querySelector(".quote-close");
 
-// localStorage.setItem("family-people", JSON.stringify(data));
+motivateImgBtn.addEventListener("click", () => {
+  motivateBox.style.display = "block";
+});
 
-// const lsd = localStorage.getItem("family-people");
-// let value = JSON.parse(lsd);
-// console.log(value);
+motivateClose.addEventListener("click", () => {
+  motivateBox.style.display = "none";
+});
+
+// Motivational Quotes API
+const quote = document.querySelector("#quote");
+const author = document.querySelector("#author");
+
+const key = `DXgx56BhRuHTfFaEz13q9IoCxCt4gjlY1YPBPh8F`;
+const category = `quotes`;
+const url = `https://api.api-ninjas.com/v1/${category}`;
+
+fetch(url, {
+  headers: {
+    "X-Api-Key": key,
+  },
+})
+  .then((res) => res.json())
+  .then((data) => {
+    quote.textContent = data[0].quote;
+    author.textContent = data[0].author;
+  })
+  .catch((err) => console.error(err));
