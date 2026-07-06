@@ -259,7 +259,122 @@ function reset() {
 
 const dailyImgBtn = document.querySelector(".daily");
 const dailyBox = document.querySelector(".daily-parent");
+const dailyClose = document.querySelector(".daily-close");
 
 dailyImgBtn.addEventListener("click", () => {
   dailyBox.style.display = "block";
 });
+dailyClose.addEventListener("click", () => {
+  dailyBox.style.display = "none";
+});
+
+// background videos and digit clock
+
+function changeBackgroundVideo() {
+  const hour = new Date().getHours();
+
+  const video = document.getElementById("bg-video");
+  const source = document.getElementById("video-source");
+
+  if (hour >= 6 && hour < 12) {
+    // Morning / Day
+    source.src = "assets/videos/1.mp4";
+  } else if (hour >= 12 && hour < 18) {
+    // Afternoon
+    source.src = "assets/videos/2.mp4";
+  } else {
+    // Night
+    source.src = "assets/videos/3.mp4";
+  }
+
+  video.load(); // New video load karega
+}
+
+function updateClock() {
+  function initClock() {
+    updateClock();
+    window.setInterval("updateClock()", 1);
+  }
+
+  function updateClock() {
+    var now = new Date();
+    var dname = now.getDay();
+    mo = now.getMonth();
+    dnum = now.getDate();
+    yr = now.getFullYear();
+    hou = now.getHours();
+    min = now.getMinutes();
+    sec = now.getSeconds();
+    pe = "AM";
+    if (hou == 0) {
+      hou = 12;
+    }
+    if (hou > 12) {
+      hou = hou - 12;
+      pe = "PM";
+    }
+    Number.prototype.pad = function (digits) {
+      let n = this.toString();
+      while (n.length < digits) {
+        n = "0" + n;
+      }
+      return n;
+    };
+    const ids = [
+      "dayname",
+      "month",
+      "daynum",
+      "year",
+      "hour",
+      "minutes",
+      "seconds",
+      "period",
+    ];
+    var months = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+    var weeks = [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+    ];
+    var values = [
+      dnum.pad(2),
+      months[mo],
+      yr,
+      weeks[dname],
+      hou.pad(2),
+      min.pad(2),
+      sec.pad(2),
+      pe,
+    ];
+    for (let i = 0; i < ids.length; i++) {
+      document.getElementById(ids[i]).firstChild.nodeValue = values[i];
+    }
+  }
+
+  changeBackgroundVideo();
+}
+
+function initClock() {
+  updateClock();
+  window.setInterval(updateClock(), 1000);
+}
+initClock();
+changeBackgroundVideo();
+setInterval(changeBackgroundVideo, 60000);

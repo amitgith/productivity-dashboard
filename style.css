@@ -25,6 +25,14 @@ main {
   width: 100%;
   /* background-color: royalblue; */
 }
+
+/* video seting  */
+#bg-video {
+  max-width: 1250px;
+  height: 100%;
+  position: absolute;
+  z-index: -99;
+}
 /* styling Dashboard Navigation styling */
 
 .navbar {
@@ -83,6 +91,8 @@ main {
   border-radius: 50%;
   cursor: pointer;
 }
+/* timming styling */
+
 /* daily planner styling */
 
 .daily-parent {
@@ -99,6 +109,29 @@ main {
   display: flex;
   justify-content: space-between;
   padding: 1rem;
+}
+.daily-close h2 {
+  font-size: 2rem;
+  font-weight: 900;
+  cursor: pointer;
+}
+.daily-container {
+  height: 100%;
+  width: 100%;
+}
+.daily-box {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+#daily-timing {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+#daily-text {
+  padding: 1rem 1rem 1rem 1rem;
 }
 /* Your Motivational Quotes styling */
 .quote-parent {

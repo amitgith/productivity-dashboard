@@ -10,7 +10,7 @@
       rel="stylesheet"
     />
   </head>
-  <body>
+  <body onload="initClock()">
     <!-- Main -->
     <main>
       <!-- Dashboard Navigation -->
@@ -22,9 +22,31 @@
         </div>
       </nav>
       <section class="section-container">
+        <video id="bg-video" autoplay muted loop playsinline>
+          <source
+            id="video-source"
+            src="assets/videos/1.mp4"
+            type="video/mp4"
+          />
+        </video>
         <div class="section-box">
           <div class="timming">
-            <div>timming</div>
+            <div class="timming-date">
+              <div>
+                <div class="date">
+                  <span id="dayname">Day</span>
+                  <span id="month">month</span>
+                  <span id="daynum">Day</span>
+                  <span id="year">Year</span>
+                </div>
+                <div class="date">
+                  <span id="hour">00</span>: <span id="minutes">00</span>:
+                  <span id="seconds">00</span>:
+                  <span id="period">AM</span>
+                </div>
+              </div>
+            </div>
+            <div class="weater">Weather Api</div>
           </div>
           <div class="feat-list">
             <div class="list-box">
@@ -71,7 +93,82 @@
         </div>
         <div class="daily-container">
           <div class="daily-box">
-            <div class="daily-input"></div>
+            <div class="daily-input1">
+              <div id="daily-timing">
+                <label for="">6:00 - 7:00</label>
+                <input id="daily-text" type="text" placeholder="..." />
+              </div>
+              <div id="daily-timing">
+                <label for="">8:00 - 9:00</label>
+                <input type="text" placeholder="..." />
+              </div>
+              <div id="daily-timing">
+                <label for="">10:00 - 11:00</label>
+                <input type="text" placeholder="..." />
+              </div>
+              <div id="daily-timing">
+                <label for="">12:00 - 13:00</label>
+                <input type="text" placeholder="..." />
+              </div>
+              <div id="daily-timing">
+                <label for="">14:00 - 15:00</label>
+                <input type="text" placeholder="..." />
+              </div>
+              <div id="daily-timing">
+                <label for="">16:00 - 17:00</label>
+                <input type="text" placeholder="..." />
+              </div>
+              <div id="daily-timing">
+                <label for="">18:00 - 19:00</label>
+                <input type="text" placeholder="..." />
+              </div>
+              <div id="daily-timing">
+                <label for="">20:00 - 21:00</label>
+                <input type="text" placeholder="..." />
+              </div>
+              <div id="daily-timing">
+                <label for="">22:00 - 23:00</label>
+                <input type="text" placeholder="..." />
+              </div>
+            </div>
+            <div class="daily-input2">
+              <div id="daily-timing">
+                <label for="">7:00 - 8:00</label>
+                <input type="text" placeholder="..." />
+              </div>
+              <div id="daily-timing">
+                <label for="">9:00 - 10:00</label>
+                <input type="text" placeholder="..." />
+              </div>
+              <div id="daily-timing">
+                <label for="">11:00 - 12:00</label>
+                <input type="text" placeholder="..." />
+              </div>
+              <div id="daily-timing">
+                <label for="">13:00 - 14:00</label>
+                <input type="text" placeholder="..." />
+              </div>
+              <div id="daily-timing">
+                <label for="">15:00 - 16:00</label>
+                <input type="text" placeholder="..." />
+              </div>
+              <div id="daily-timing">
+                <label for="">17:00 - 18:00</label>
+                <input type="text" placeholder="..." />
+              </div>
+              <div id="daily-timing">
+                <label for="">19:00 - 20:00</label>
+                <input type="text" placeholder="..." />
+              </div>
+              <div id="daily-timing">
+                <label for="">21:00 - 22:00</label>
+                <input type="text" placeholder="..." />
+              </div>
+              <div id="daily-timing">
+                <label for="">23:00 - 24:00</label>
+                <input type="text" placeholder="..." />
+              </div>
+            </div>
           </div>
         </div>
       </div>
