@@ -134,6 +134,40 @@ blockquote {
 cite {
   font-weight: 600;
 }
+/* Study with me styling */
+.study-parent {
+  height: 100%;
+  width: 100%;
+  background-color: white;
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.study-top {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem;
+}
+.study-container {
+  height: 100%;
+  width: 100%;
+}
+.study-close h2 {
+  font-size: 2rem;
+  font-weight: 900;
+  cursor: pointer;
+}
+.study-box {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 /* Your Personalised task list styling */
 .task-container {
   height: 100%;
