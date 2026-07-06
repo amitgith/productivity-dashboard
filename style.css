@@ -83,7 +83,23 @@ main {
   border-radius: 50%;
   cursor: pointer;
 }
+/* daily planner styling */
 
+.daily-parent {
+  height: 100%;
+  width: 100%;
+  background-color: white;
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.daily-top {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+}
 /* Your Motivational Quotes styling */
 .quote-parent {
   height: 100%;
