@@ -310,27 +310,65 @@
         </div>
       </div>
 
-      <!-- Your Daily Goal list -->
-      <div class="goal-container">
-        <!-- Heading -->
-        <div class="goal-heading">
-          <h1>Daily Goals</h1>
-          <div class="goal-close"><h2>x</h2></div>
-        </div>
-        <!-- task box -->
-        <div class="goal-box">
-          <div class="goal-data">
-            <form action="" id="form-goal-container">
-              <input type="text" id="goal" placeholder="Enter goals" />
+      <!-- ==========================
+     Daily Goal Manager
+========================== -->
+
+      <!-- Goal Open Button (Dashboard Icon/Button) -->
+
+      <button class="goal">Goals</button>
+
+      <!-- Goal Modal -->
+
+      <div class="goal-modal">
+        <!-- Modal Header -->
+
+        <header class="goal-modal__header">
+          <h1 class="goal-modal__title">Daily Goals</h1>
+
+          <button class="goal-modal__close" aria-label="Close Goal Modal">
+            &times;
+          </button>
+        </header>
+
+        <!-- Modal Body -->
+
+        <main class="goal-modal__body">
+          <!-- Goal Form Section -->
+
+          <section class="goal-form">
+            <form class="goal-form__container" id="goalForm">
+              <!-- Goal Title -->
+
+              <input
+                class="goal-form__input"
+                type="text"
+                id="goalTitle"
+                name="goalTitle"
+                placeholder="Enter Goal Title"
+              />
+
+              <!-- Goal Description -->
+
               <textarea
-                placeholder="Enter your Goals"
-                id="detailsgoal"
+                class="goal-form__textarea"
+                id="goalDetails"
+                name="goalDetails"
+                placeholder="Enter Goal Details"
               ></textarea>
-              <button class="goal-add" id="adding">All Goals</button>
+
+              <!-- Submit Button -->
+
+              <button type="submit" class="goal-form__submit">Add Goal</button>
             </form>
-          </div>
-          <div class="goal-list"></div>
-        </div>
+          </section>
+
+          <!-- Goal List Section -->
+
+          <section class="goal-list" id="goalList">
+            <!-- Goals will be generated using JavaScript -->
+          </section>
+        </main>
       </div>
     </main>
     <script src="script.js"></script>
