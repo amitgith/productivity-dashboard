@@ -255,17 +255,18 @@ function reset() {
   display.textContent = "25:00";
 }
 
-// daily clicked button overlay
+// Daily Planner Overlay
 
-const dailyImgBtn = document.querySelector(".daily");
-const dailyBox = document.querySelector(".daily-parent");
-const dailyClose = document.querySelector(".daily-close");
+const dailyPlannerBtn = document.querySelector(".daily");
+const dailyPlannerModal = document.querySelector(".daily-planner");
+const dailyPlannerCloseBtn = document.querySelector(".daily-planner__close");
 
-dailyImgBtn.addEventListener("click", () => {
-  dailyBox.style.display = "block";
+dailyPlannerBtn.addEventListener("click", () => {
+  dailyPlannerModal.style.display = "block";
 });
-dailyClose.addEventListener("click", () => {
-  dailyBox.style.display = "none";
+
+dailyPlannerCloseBtn.addEventListener("click", () => {
+  dailyPlannerModal.style.display = "none";
 });
 
 // background videos and digit clock
