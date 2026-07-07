@@ -288,55 +288,127 @@ main {
   }
 }
 
-/* Your Motivational Quotes styling */
-.quote-parent {
-  height: 100%;
-  width: 100%;
-  background-color: white;
-  display: none;
+/* ===========================
+   Motivational Quotes Modal
+=========================== */
+
+.quotes-modal {
   position: absolute;
-  top: 0;
-  left: 0;
+  inset: 0;
+  display: none;
+  background: rgba(255, 255, 255, 0.98);
+  z-index: 1000;
 }
-.quote-close {
-  width: 100%;
-  display: flex;
-  justify-content: flex-end;
-  padding: 1rem;
-}
-.quote-close h2 {
-  font-size: 3rem;
+
+.quotes-modal__close {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  width: 45px;
+  height: 45px;
+  border: none;
+  border-radius: 50%;
+  background: #f1f1f1;
+  font-size: 1.8rem;
   cursor: pointer;
+  transition: 0.3s;
 }
-.quote-container {
-  height: 100%;
+
+.quotes-modal__close:hover {
+  background: #e2e2e2;
+}
+
+.quotes-modal__container {
   width: 100%;
+  height: 100%;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 2rem;
 }
-.quote-box {
-  height: 30%;
-  width: 70%;
-  background-color: green;
-  border-radius: 0.5rem;
-  padding: 1rem;
+
+.quotes-card {
+  width: min(700px, 100%);
+  padding: 2rem;
+  background: #2e7d32;
+  color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
 }
-.quote-api {
-  margin-top: 1rem;
+
+.quotes-card__title {
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.quotes-card__content {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
 }
-blockquote {
-  width: 100%;
+
+.quotes-card__quote {
   font-size: 1.5rem;
-  font-weight: 600;
-  max-width: 900px;
+  line-height: 1.8;
+  font-style: italic;
 }
-cite {
+
+.quotes-card__author {
+  align-self: flex-end;
+  font-size: 1.1rem;
   font-weight: 600;
+}
+
+/* ===========================
+   Responsive
+=========================== */
+
+@media (max-width: 768px) {
+  .quotes-card {
+    padding: 1.5rem;
+  }
+
+  .quotes-card__title {
+    font-size: 1.6rem;
+  }
+
+  .quotes-card__quote {
+    font-size: 1.2rem;
+  }
+
+  .quotes-card__author {
+    font-size: 1rem;
+  }
+
+  .quotes-modal__close {
+    width: 40px;
+    height: 40px;
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .quotes-modal__container {
+    padding: 1rem;
+  }
+
+  .quotes-card {
+    padding: 1.2rem;
+    border-radius: 12px;
+  }
+
+  .quotes-card__title {
+    font-size: 1.4rem;
+  }
+
+  .quotes-card__quote {
+    font-size: 1rem;
+  }
+
+  .quotes-card__author {
+    font-size: 0.9rem;
+  }
 }
 /* Study with me styling */
 .study-parent {

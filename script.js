@@ -161,38 +161,57 @@ const editGoal = (name) => {
   form2[1].value = goal.text1;
 };
 
-// Motivational Quotes in clicked
-const motivateBox = document.querySelector(".quote-parent");
-const motivateImgBtn = document.querySelector(".motivate");
-const motivateClose = document.querySelector(".quote-close");
+// ===========================
+// Motivational Quotes Modal
+// ===========================
 
-motivateImgBtn.addEventListener("click", () => {
-  motivateBox.style.display = "block";
+const quotesModal = document.querySelector(".quotes-modal");
+const quotesBtn = document.querySelector(".motivate");
+const quotesCloseBtn = document.querySelector(".quotes-modal__close");
+
+quotesBtn.addEventListener("click", () => {
+  quotesModal.style.display = "flex";
 });
 
-motivateClose.addEventListener("click", () => {
-  motivateBox.style.display = "none";
+quotesCloseBtn.addEventListener("click", () => {
+  quotesModal.style.display = "none";
 });
 
+// ===========================
 // Motivational Quotes API
-const quote = document.querySelector("#quote");
-const author = document.querySelector("#author");
+// ===========================
 
-const key = `DXgx56BhRuHTfFaEz13q9IoCxCt4gjlY1YPBPh8F`;
+const quoteText = document.querySelector("#quote");
+const quoteAuthor = document.querySelector("#author");
+
+const API_KEY = `DXgx56BhRuHTfFaEz13q9IoCxCt4gjlY1YPBPh8F`;
 const category = `quotes`;
-const url = `https://api.api-ninjas.com/v1/${category}`;
+const API_URL = `https://api.api-ninjas.com/v1/${category}`;
 
-fetch(url, {
-  headers: {
-    "X-Api-Key": key,
-  },
-})
-  .then((res) => res.json())
-  .then((data) => {
-    quote.textContent = data[0].quote;
-    author.textContent = data[0].author;
-  })
-  .catch((err) => console.error(err));
+async function loadQuote() {
+  try {
+    const response = await fetch(API_URL, {
+      headers: {
+        "X-Api-Key": API_KEY,
+      },
+    });
+
+    const data = await response.json();
+
+    const { quote, author } = data[0];
+
+    quoteText.textContent = quote;
+    quoteAuthor.textContent = `— ${author}`;
+  } catch (error) {
+    console.error(error);
+
+    quoteText.textContent =
+      "Stay positive. Keep learning. Success will follow.";
+    quoteAuthor.textContent = "— Unknown";
+  }
+}
+
+loadQuote();
 
 // Study with me
 
