@@ -86,27 +86,54 @@
         </div>
       </section>
 
-      <!-- Your Personalised task list -->
-      <div class="task-container">
-        <!-- Heading -->
-        <div class="task-heading">
-          <h1>Your Personalised task List</h1>
-          <div class="task-close"><h2>x</h2></div>
+      <!-- ==========================
+     Personalized Task Manager
+========================== -->
+
+      <div class="task-modal">
+        <!-- Header -->
+
+        <div class="task-modal__header">
+          <h1 class="task-modal__title">Personalized Task List</h1>
+
+          <button class="task-modal__close">&times;</button>
         </div>
-        <!-- task box -->
-        <div class="task-box">
-          <div class="form-data">
-            <form action="" id="form-container">
-              <input type="text" id="task" placeholder="Enter Task" />
-              <textarea placeholder="Enter Details" id="details"></textarea>
-              <div>
-                <input type="checkbox" id="check" />
-                Marks as Important!
-              </div>
-              <button class="task-add" id="adding">Add Task</button>
+
+        <!-- Body -->
+
+        <div class="task-modal__body">
+          <!-- Form -->
+
+          <div class="task-form">
+            <form class="task-form__container" id="taskForm">
+              <input
+                class="task-form__input"
+                type="text"
+                id="taskTitle"
+                placeholder="Enter Task Title"
+              />
+
+              <textarea
+                class="task-form__textarea"
+                id="taskDetails"
+                placeholder="Enter Task Details"
+              ></textarea>
+
+              <label class="task-form__checkbox">
+                <input type="checkbox" id="importantTask" />
+
+                <span>Mark as Important</span>
+              </label>
+
+              <button type="submit" class="task-form__submit" id="addTaskBtn">
+                Add Task
+              </button>
             </form>
           </div>
-          <div class="todo-list"></div>
+
+          <!-- Task List -->
+
+          <div class="task-list" id="taskList"></div>
         </div>
       </div>
 

@@ -1,84 +1,247 @@
-const form1 = document.querySelector("form");
-const inp1 = document.querySelector("#task");
-const textArea = document.querySelector("#details");
-const checkBox = document.querySelector("#check");
-const todoBox = document.querySelector(".todo-list");
+// ==========================
+// Personalized Task Manager
+// JavaScript
+// ==========================
 
-let task1Data = JSON.parse(localStorage.getItem("tasks")) || [];
+// Select Elements
 
-let updateIndex = null;
+const taskForm = document.querySelector("#taskForm");
 
-const task1Ui = () => {
-  todoBox.innerHTML = "";
-  task1Data.forEach((elem, index) => {
-    todoBox.innerHTML += `   <div class="li">
-              <h3>${elem.task1} <sup>imp</sup></h3>
-              <p>${elem.text}</p>
-              <div class="btns">
-                <button onclick="editTask('${elem.task1}')" class="btn" id="edit1">Edit</button>
-                <button onclick="deleteTask(${index})" class="btn" id="del1">Delete</button>
-              </div>
-            </div>`;
+const taskTitleInput = document.querySelector("#taskTitle");
+
+const taskDetailsInput = document.querySelector("#taskDetails");
+
+const importantTaskInput = document.querySelector("#importantTask");
+
+const taskList = document.querySelector("#taskList");
+
+// Modal Elements
+
+const taskModal = document.querySelector(".task-modal");
+
+const taskOpenBtn = document.querySelector(".todo");
+
+const taskCloseBtn = document.querySelector(".task-modal__close");
+
+// Local Storage Data
+
+let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+// Edit Index
+
+let editTaskIndex = null;
+
+// ==========================
+// Render Tasks
+// ==========================
+
+function renderTasks() {
+  taskList.innerHTML = "";
+
+  tasks.forEach((task, index) => {
+    const taskCard = document.createElement("div");
+
+    taskCard.className = `task-card ${
+      task.completed ? "task-card--completed" : ""
+    }`;
+
+    taskCard.innerHTML = `
+
+
+      <div class="task-card__content">
+
+
+        <h3>
+
+          ${task.title}
+
+          ${task.isImportant ? "<sup>IMP</sup>" : ""}
+
+        </h3>
+
+
+
+        <p>
+
+          ${task.details}
+
+        </p>
+
+
+
+      </div>
+
+
+
+      <div class="task-card__buttons">
+
+
+        <button 
+          class="task-card__btn complete-btn"
+          data-index="${index}"
+        >
+
+          ${task.completed ? "Completed" : "Complete"}
+
+
+        </button>
+
+
+
+
+        <button 
+          class="task-card__btn edit-btn"
+          data-index="${index}"
+        >
+
+          Edit
+
+        </button>
+
+
+
+
+
+        <button 
+          class="task-card__btn delete-btn"
+          data-index="${index}"
+        >
+
+          Delete
+
+        </button>
+
+
+
+      </div>
+
+
+    `;
+
+    taskList.appendChild(taskCard);
   });
-};
-task1Ui();
+}
 
-form1.addEventListener("submit", (events) => {
-  events.preventDefault();
-  let task1 = inp1.value;
-  let text = textArea.value;
-  let check = checkBox.value;
-  if (task1.trim() === "" || text.trim() === "" || check.trim() === "") {
-    alert("Filled all input");
+renderTasks();
+
+// ==========================
+// Add / Update Task
+// ==========================
+
+taskForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  const title = taskTitleInput.value.trim();
+
+  const details = taskDetailsInput.value.trim();
+
+  const isImportant = importantTaskInput.checked;
+
+  if (title === "" || details === "") {
+    alert("Please fill all fields");
+
     return;
   }
 
-  let obj = {
-    task1,
-    text,
-    check,
+  const taskData = {
+    title,
+
+    details,
+
+    isImportant,
+
+    completed: false,
   };
 
-  if (updateIndex !== null) {
-    task1Data[updateIndex] = obj;
-    updateIndex = null;
-    localStorage.setItem("tasks", JSON.stringify(task1Data));
-  } else {
-    task1Data.push(obj);
-    localStorage.setItem("tasks", JSON.stringify(task1Data));
+  // Update Existing Task
+
+  if (editTaskIndex !== null) {
+    taskData.completed = tasks[editTaskIndex].completed;
+
+    tasks[editTaskIndex] = taskData;
+
+    editTaskIndex = null;
   }
 
-  task1Ui();
+  // Add New Task
+  else {
+    tasks.push(taskData);
+  }
 
-  form1.reset();
+  saveTasks();
+
+  renderTasks();
+
+  taskForm.reset();
 });
 
-const deleteTask = (index) => {
-  task1Data.splice(index, 1);
-  localStorage.setItem("tasks", JSON.stringify(task1Data));
-  task1Ui();
-};
+// ==========================
+// Save Tasks
+// ==========================
 
-const editTask = (name) => {
-  let task = task1Data.find((elem) => elem.task1 === name);
-  updateIndex = task1Data.findIndex((elem) => elem.task1 === name);
-  form1[0].value = task.task1;
-  form1[1].value = task.text;
-  form1[2].value = task.check;
-};
+function saveTasks() {
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+}
 
-// clicked karke task list ko lana hai ok
+// ==========================
+// Task Buttons
+// Event Delegation
+// ==========================
 
-const taskImgBtn = document.querySelector(".todo");
-const closeBtn = document.querySelector(".task-close");
-const taskContainer = document.querySelector(".task-container");
+taskList.addEventListener("click", (event) => {
+  const index = event.target.dataset.index;
 
-taskImgBtn.addEventListener("click", () => {
-  taskContainer.style.display = "block";
+  if (event.target.classList.contains("delete-btn")) {
+    tasks.splice(index, 1);
+
+    saveTasks();
+
+    renderTasks();
+  }
+
+  if (event.target.classList.contains("edit-btn")) {
+    const selectedTask = tasks[index];
+
+    taskTitleInput.value = selectedTask.title;
+
+    taskDetailsInput.value = selectedTask.details;
+
+    importantTaskInput.checked = selectedTask.isImportant;
+
+    editTaskIndex = index;
+  }
+
+  if (event.target.classList.contains("complete-btn")) {
+    tasks[index].completed = !tasks[index].completed;
+
+    saveTasks();
+
+    renderTasks();
+  }
 });
 
-closeBtn.addEventListener("click", () => {
-  taskContainer.style.display = "none";
+// ==========================
+// Modal Open
+// ==========================
+
+taskOpenBtn.addEventListener("click", () => {
+  taskModal.style.display = "block";
+});
+
+// ==========================
+// Modal Close
+// ==========================
+
+taskCloseBtn.addEventListener("click", () => {
+  taskModal.style.display = "none";
+});
+
+// Close When Click Outside
+
+taskModal.addEventListener("click", (event) => {
+  if (event.target === taskModal) {
+    taskModal.style.display = "none";
+  }
 });
 
 // clicked karke goal list ko lana hai ok
