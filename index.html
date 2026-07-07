@@ -10,7 +10,8 @@
       rel="stylesheet"
     />
   </head>
-  <body onload="initClock()">
+  <body>
+    <!-- <body onload="initClock()"> -->
     <!-- Main -->
     <main>
       <!-- Dashboard Navigation -->
@@ -85,6 +86,30 @@
         </div>
       </section>
 
+      <!-- Your Personalised task list -->
+      <div class="task-container">
+        <!-- Heading -->
+        <div class="task-heading">
+          <h1>Your Personalised task List</h1>
+          <div class="task-close"><h2>x</h2></div>
+        </div>
+        <!-- task box -->
+        <div class="task-box">
+          <div class="form-data">
+            <form action="" id="form-container">
+              <input type="text" id="task" placeholder="Enter Task" />
+              <textarea placeholder="Enter Details" id="details"></textarea>
+              <div>
+                <input type="checkbox" id="check" />
+                Marks as Important!
+              </div>
+              <button class="task-add" id="adding">Add Task</button>
+            </form>
+          </div>
+          <div class="todo-list"></div>
+        </div>
+      </div>
+
       <!-- Daily Planner Modal -->
       <div class="daily-planner">
         <div class="daily-planner__header">
@@ -100,94 +125,94 @@
             <div class="daily-planner__column">
               <div class="time-slot">
                 <label>6:00 - 7:00</label>
-                <input type="text" placeholder="Enter your task..." />
+                <input type="text" placeholder="....." />
               </div>
 
               <div class="time-slot">
                 <label>8:00 - 9:00</label>
-                <input type="text" placeholder="Enter your task..." />
+                <input type="text" placeholder="....." />
               </div>
 
               <div class="time-slot">
                 <label>10:00 - 11:00</label>
-                <input type="text" placeholder="Enter your task..." />
+                <input type="text" placeholder="....." />
               </div>
 
               <div class="time-slot">
                 <label>12:00 - 13:00</label>
-                <input type="text" placeholder="Enter your task..." />
+                <input type="text" placeholder="....." />
               </div>
 
               <div class="time-slot">
                 <label>14:00 - 15:00</label>
-                <input type="text" placeholder="Enter your task..." />
+                <input type="text" placeholder="....." />
               </div>
 
               <div class="time-slot">
                 <label>16:00 - 17:00</label>
-                <input type="text" placeholder="Enter your task..." />
+                <input type="text" placeholder="....." />
               </div>
 
               <div class="time-slot">
                 <label>18:00 - 19:00</label>
-                <input type="text" placeholder="Enter your task..." />
+                <input type="text" placeholder="....." />
               </div>
 
               <div class="time-slot">
                 <label>20:00 - 21:00</label>
-                <input type="text" placeholder="Enter your task..." />
+                <input type="text" placeholder="....." />
               </div>
 
               <div class="time-slot">
                 <label>22:00 - 23:00</label>
-                <input type="text" placeholder="Enter your task..." />
+                <input type="text" placeholder="....." />
               </div>
             </div>
 
             <div class="daily-planner__column">
               <div class="time-slot">
                 <label>7:00 - 8:00</label>
-                <input type="text" placeholder="Enter your task..." />
+                <input type="text" placeholder="....." />
               </div>
 
               <div class="time-slot">
                 <label>9:00 - 10:00</label>
-                <input type="text" placeholder="Enter your task..." />
+                <input type="text" placeholder="....." />
               </div>
 
               <div class="time-slot">
                 <label>11:00 - 12:00</label>
-                <input type="text" placeholder="Enter your task..." />
+                <input type="text" placeholder="....." />
               </div>
 
               <div class="time-slot">
                 <label>13:00 - 14:00</label>
-                <input type="text" placeholder="Enter your task..." />
+                <input type="text" placeholder="....." />
               </div>
 
               <div class="time-slot">
                 <label>15:00 - 16:00</label>
-                <input type="text" placeholder="Enter your task..." />
+                <input type="text" placeholder="....." />
               </div>
 
               <div class="time-slot">
                 <label>17:00 - 18:00</label>
-                <input type="text" placeholder="Enter your task..." />
+                <input type="text" placeholder="....." />
               </div>
 
               <div class="time-slot">
                 <label>19:00 - 20:00</label>
-                <input type="text" placeholder="Enter your task..." />
+                <input type="text" placeholder="....." />
               </div>
 
               <div class="time-slot">
                 <label>21:00 - 22:00</label>
-                <input type="text" placeholder="Enter your task..." />
+                <input type="text" placeholder="....." />
               </div>
 
               <div class="time-slot">
                 <label>23:00 - 24:00</label>
-                <input type="text" placeholder="Enter your task..." />
+                <input type="text" placeholder="....." />
               </div>
             </div>
           </div>
@@ -215,47 +240,49 @@
         </div>
       </div>
 
-      <!-- Study With Me -->
-      <div class="study-parent">
-        <div class="study-top">
-          <h1>Study With Me</h1>
-          <div class="study-close"><h2>x</h2></div>
+      <!-- ==========================
+     Study With Me Modal
+=========================== -->
+
+      <div class="study-modal">
+        <div class="study-modal__header">
+          <h1 class="study-modal__title">Study With Me</h1>
+
+          <button class="study-modal__close">&times;</button>
         </div>
-        <div class="study-container">
-          <div class="study-box">
-            <h2>Work Session</h2>
-            <h2 class="display">25:00</h2>
-            <div id="controls">
-              <button id="startBtn" onclick="start()">Start</button>
-              <button id="stopBtn" onclick="stop()">Pause</button>
-              <button id="resetBtn" onclick="reset()">Reset</button>
+
+        <div class="study-modal__body">
+          <div class="study-card">
+            <h2 class="study-card__heading">Work Session</h2>
+
+            <div class="study-card__timer" id="timer">25:00</div>
+
+            <div class="study-card__controls">
+              <button
+                class="study-card__btn study-card__btn--start"
+                id="startBtn"
+              >
+                Start
+              </button>
+
+              <button
+                class="study-card__btn study-card__btn--pause"
+                id="pauseBtn"
+              >
+                Pause
+              </button>
+
+              <button
+                class="study-card__btn study-card__btn--reset"
+                id="resetBtn"
+              >
+                Reset
+              </button>
             </div>
           </div>
         </div>
       </div>
-      <!-- Your Personalised task list -->
-      <div class="task-container">
-        <!-- Heading -->
-        <div class="task-heading">
-          <h1>Your Personalised task List</h1>
-          <div class="task-close"><h2>x</h2></div>
-        </div>
-        <!-- task box -->
-        <div class="task-box">
-          <div class="form-data">
-            <form action="" id="form-container">
-              <input type="text" id="task" placeholder="Enter Task" />
-              <textarea placeholder="Enter Details" id="details"></textarea>
-              <div>
-                <input type="checkbox" id="check" />
-                Marks as Important!
-              </div>
-              <button class="task-add" id="adding">Add Task</button>
-            </form>
-          </div>
-          <div class="todo-list"></div>
-        </div>
-      </div>
+
       <!-- Your Daily Goal list -->
       <div class="goal-container">
         <!-- Heading -->

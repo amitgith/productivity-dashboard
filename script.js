@@ -213,65 +213,91 @@ async function loadQuote() {
 
 loadQuote();
 
-// Study with me
+// ===========================
+// Study With Me Modal
+// ===========================
 
-const studyImgBtn = document.querySelector(".timer");
-const studyBox = document.querySelector(".study-parent");
-const studyClose = document.querySelector(".study-close");
+const studyBtn = document.querySelector(".timer");
+const studyModal = document.querySelector(".study-modal");
+const studyCloseBtn = document.querySelector(".study-modal__close");
 
-studyImgBtn.addEventListener("click", () => {
-  studyBox.style.display = "block";
+studyBtn.addEventListener("click", () => {
+  studyModal.style.display = "flex";
 });
-studyClose.addEventListener("click", () => {
-  studyBox.style.display = "none";
+
+studyCloseBtn.addEventListener("click", () => {
+  studyModal.style.display = "none";
 });
 
-// study timer logic
+const timerDisplay = document.querySelector("#timer");
+const startBtn = document.querySelector("#startBtn");
+const pauseBtn = document.querySelector("#pauseBtn");
+const resetBtn = document.querySelector("#resetBtn");
 
-const display = document.querySelector(".display");
-let timer = null;
+const WORK_DURATION = 25 * 60 * 1000; // 25 minutes
+let timerId = null;
 let startTime = 0;
-let elapseTime = 0;
+let remainingTime = WORK_DURATION;
 let isRunning = false;
 
-const WORK_DURATION = 25 * 60;
-let remainingTime = WORK_DURATION * 1000;
+// Event Listeners
 
-function start() {
-  if (!isRunning) {
-    startTime = Date.now();
-    timer = setInterval(update, 10);
-    isRunning = true;
-  }
+startBtn.addEventListener("click", startTimer);
+pauseBtn.addEventListener("click", pauseTimer);
+resetBtn.addEventListener("click", resetTimer);
+
+// ===========================
+// Start Timer
+// ===========================
+
+function startTimer() {
+  if (isRunning) return;
+  startTime = Date.now();
+  timerId = setInterval(updateTimer, 1000);
+  isRunning = true;
 }
 
-function update() {
+// ===========================
+// Update Timer
+// ===========================
+
+function updateTimer() {
   const elapsedTime = Date.now() - startTime;
   const timeLeft = remainingTime - elapsedTime;
 
   if (timeLeft <= 0) {
-    clearInterval(timer);
+    clearInterval(timerId);
     isRunning = false;
-    display.textContent = "00:00";
+    timerDisplay.textContent = "00:00";
     alert("🎉 Time's up! Take a break.");
     return;
   }
 
-  let minutes = Math.floor(timeLeft / (1000 * 60));
-  let seconds = Math.floor((timeLeft / 1000) % 60);
-
-  minutes = String(minutes).padStart(2, "0");
-  seconds = String(seconds).padStart(2, "0");
-
-  display.textContent = `${minutes}:${seconds}`;
+  const minutes = Math.floor(timeLeft / 60000);
+  const seconds = Math.floor((timeLeft % 60000) / 1000);
+  timerDisplay.textContent = `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
 }
 
-function reset() {
-  clearInterval(timer);
-  isRunning = false;
+// ===========================
+// Pause Timer
+// ===========================
 
-  remainingTime = WORK_DURATION * 1000;
-  display.textContent = "25:00";
+function pauseTimer() {
+  if (!isRunning) return;
+  clearInterval(timerId);
+  remainingTime -= Date.now() - startTime;
+  isRunning = false;
+}
+
+// ===========================
+// Reset Timer
+// ===========================
+
+function resetTimer() {
+  clearInterval(timerId);
+  isRunning = false;
+  remainingTime = WORK_DURATION;
+  timerDisplay.textContent = "25:00";
 }
 
 // Daily Planner Overlay
@@ -290,111 +316,111 @@ dailyPlannerCloseBtn.addEventListener("click", () => {
 
 // background videos and digit clock
 
-function changeBackgroundVideo() {
-  const hour = new Date().getHours();
+// function changeBackgroundVideo() {
+//   const hour = new Date().getHours();
 
-  const video = document.getElementById("bg-video");
-  const source = document.getElementById("video-source");
+//   const video = document.getElementById("bg-video");
+//   const source = document.getElementById("video-source");
 
-  if (hour >= 6 && hour < 12) {
-    // Morning / Day
-    source.src = "assets/videos/1.mp4";
-  } else if (hour >= 12 && hour < 18) {
-    // Afternoon
-    source.src = "assets/videos/2.mp4";
-  } else {
-    // Night
-    source.src = "assets/videos/3.mp4";
-  }
+//   if (hour >= 6 && hour < 12) {
+//     // Morning / Day
+//     source.src = "assets/videos/1.mp4";
+//   } else if (hour >= 12 && hour < 18) {
+//     // Afternoon
+//     source.src = "assets/videos/2.mp4";
+//   } else {
+//     // Night
+//     source.src = "assets/videos/3.mp4";
+//   }
 
-  video.load(); // New video load karega
-}
+//   video.load(); // New video load karega
+// }
 
-function updateClock() {
-  function initClock() {
-    updateClock();
-    window.setInterval("updateClock()", 1);
-  }
+// function updateClock() {
+//   function initClock() {
+//     updateClock();
+//     window.setInterval("updateClock()", 1);
+//   }
 
-  function updateClock() {
-    var now = new Date();
-    var dname = now.getDay();
-    mo = now.getMonth();
-    dnum = now.getDate();
-    yr = now.getFullYear();
-    hou = now.getHours();
-    min = now.getMinutes();
-    sec = now.getSeconds();
-    pe = "AM";
-    if (hou == 0) {
-      hou = 12;
-    }
-    if (hou > 12) {
-      hou = hou - 12;
-      pe = "PM";
-    }
-    Number.prototype.pad = function (digits) {
-      let n = this.toString();
-      while (n.length < digits) {
-        n = "0" + n;
-      }
-      return n;
-    };
-    const ids = [
-      "dayname",
-      "month",
-      "daynum",
-      "year",
-      "hour",
-      "minutes",
-      "seconds",
-      "period",
-    ];
-    var months = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
-    ];
-    var weeks = [
-      "Sunday",
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday",
-    ];
-    var values = [
-      dnum.pad(2),
-      months[mo],
-      yr,
-      weeks[dname],
-      hou.pad(2),
-      min.pad(2),
-      sec.pad(2),
-      pe,
-    ];
-    for (let i = 0; i < ids.length; i++) {
-      document.getElementById(ids[i]).firstChild.nodeValue = values[i];
-    }
-  }
+//   function updateClock() {
+//     var now = new Date();
+//     var dname = now.getDay();
+//     mo = now.getMonth();
+//     dnum = now.getDate();
+//     yr = now.getFullYear();
+//     hou = now.getHours();
+//     min = now.getMinutes();
+//     sec = now.getSeconds();
+//     pe = "AM";
+//     if (hou == 0) {
+//       hou = 12;
+//     }
+//     if (hou > 12) {
+//       hou = hou - 12;
+//       pe = "PM";
+//     }
+//     Number.prototype.pad = function (digits) {
+//       let n = this.toString();
+//       while (n.length < digits) {
+//         n = "0" + n;
+//       }
+//       return n;
+//     };
+//     const ids = [
+//       "dayname",
+//       "month",
+//       "daynum",
+//       "year",
+//       "hour",
+//       "minutes",
+//       "seconds",
+//       "period",
+//     ];
+//     var months = [
+//       "January",
+//       "February",
+//       "March",
+//       "April",
+//       "May",
+//       "June",
+//       "July",
+//       "August",
+//       "September",
+//       "October",
+//       "November",
+//       "December",
+//     ];
+//     var weeks = [
+//       "Sunday",
+//       "Monday",
+//       "Tuesday",
+//       "Wednesday",
+//       "Thursday",
+//       "Friday",
+//       "Saturday",
+//     ];
+//     var values = [
+//       dnum.pad(2),
+//       months[mo],
+//       yr,
+//       weeks[dname],
+//       hou.pad(2),
+//       min.pad(2),
+//       sec.pad(2),
+//       pe,
+//     ];
+//     for (let i = 0; i < ids.length; i++) {
+//       document.getElementById(ids[i]).firstChild.nodeValue = values[i];
+//     }
+//   }
 
-  changeBackgroundVideo();
-}
+//   changeBackgroundVideo();
+// }
 
-function initClock() {
-  updateClock();
-  window.setInterval(updateClock(), 1000);
-}
-initClock();
-changeBackgroundVideo();
-setInterval(changeBackgroundVideo, 60000);
+// function initClock() {
+//   updateClock();
+//   window.setInterval(updateClock(), 1000);
+// }
+// initClock();
+// changeBackgroundVideo();
+// setInterval(changeBackgroundVideo, 60000);
