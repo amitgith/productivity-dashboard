@@ -2,450 +2,438 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <meta
+      name="description"
+      content="Productivity Dashboard with task manager, daily planner, weather, quotes and pomodoro timer"
+    />
+
     <title>Productivity Dashboard</title>
+
+    <link rel="icon" href="assets/images/logo.png" />
+
     <link rel="stylesheet" href="style.css" />
+
     <link
       href="https://cdn.jsdelivr.net/npm/remixicon@4.9.0/fonts/remixicon.css"
       rel="stylesheet"
     />
   </head>
+
   <body>
-    <!-- <body onload="initClock()"> -->
-    <!-- Main -->
-    <!-- Header -->
-<header class="navbar">
-  <h1 class="logo">Productivity Dashboard</h1>
+    <header class="navbar">
+      <h1 class="logo">Productivity Dashboard</h1>
 
-  <button
-    class="theme-toggle"
-    id="theme-toggle"
-    aria-label="Toggle Theme"
-  >
-    <span class="day">
-      <i class="ri-sun-fill"></i>
-    </span>
+      <button class="theme-toggle" id="theme-toggle">
+        <span class="day">
+          <i class="ri-sun-fill"></i>
+        </span>
 
-    <span class="night">
-      <i class="ri-moon-fill"></i>
-    </span>
-  </button>
-</header>
+        <span class="night hide">
+          <i class="ri-moon-fill"></i>
+        </span>
+      </button>
+    </header>
 
-<!-- Main -->
-<main>
+    <main>
+      <section class="hero">
+        <img
+          id="bg-image"
+          src="assets/images/morning.jpg"
+          alt="Mountain Landscape Background"
+          class="background-image"
+          loading="eager"
+        />
 
-  <!-- Hero Section -->
-  <section class="hero">
+        <div class="overlay"></div>
 
-    <!-- Background Image -->
-    <img
-      id="bg-image"
-      src="assets/images/morning.jpg"
-      alt="Mountain Landscape"
-      class="background-image"
-    />
+        <div class="hero-content">
+          <section class="top-bar">
+            <article class="clock-card">
+              <div class="date">
+                <span id="dayname">Monday</span>
 
-    <div class="overlay"></div>
+                <span id="month">January</span>
 
-    <div class="hero-content">
+                <span id="daynum">01</span>
 
-      <!-- Time & Weather -->
-      <section class="top-bar">
+                <span id="year">2026</span>
+              </div>
 
-        <!-- Clock -->
-        <article class="clock-card">
+              <div class="time">
+                <span id="hour">00</span> :
 
-          <div class="date">
+                <span id="minutes">00</span> :
 
-            <span id="dayname">Monday</span>
+                <span id="seconds">00</span>
 
-            <span id="month">January</span>
+                <span id="period">AM</span>
+              </div>
+            </article>
 
-            <span id="daynum">01</span>
+            <article class="weather-card">
+              <div class="weather-icon">
+                <img
+                  id="weather-icon"
+                  src="assets/images/weather.png"
+                  alt="Current Weather"
+                />
+              </div>
 
-            <span id="year">2026</span>
+              <div class="weather-info">
+                <h3 id="city">Loading...</h3>
 
-          </div>
+                <h2 id="temperature">--°C</h2>
 
-          <div class="time">
+                <p id="condition">Fetching weather...</p>
 
-            <span id="hour">00</span> :
-            <span id="minutes">00</span> :
-            <span id="seconds">00</span>
+                <small id="humidity"> Humidity: -- </small>
+              </div>
+            </article>
+          </section>
 
-            <span id="period">AM</span>
+          <section class="features">
+            <article class="feature-card todo">
+              <img src="assets/images/todo.png" alt="Todo List" />
 
-          </div>
+              <h3>Todo</h3>
+            </article>
 
-        </article>
+            <article class="feature-card daily">
+              <img src="assets/images/planner.png" alt="Daily Planner" />
 
-        <!-- Weather -->
-        <article class="weather-card">
+              <h3>Planner</h3>
+            </article>
 
-          <div class="weather-icon">
-            <img
-              id="weather-icon"
-              src=""
-              alt="Weather Icon"
-            />
-          </div>
+            <article class="feature-card motivate">
+              <img src="assets/images/motivate.png" alt="Motivation" />
 
-          <div class="weather-info">
+              <h3>Motivation</h3>
+            </article>
 
-            <h3 id="city">Loading...</h3>
+            <article class="feature-card timer">
+              <img src="assets/images/timer.png" alt="Pomodoro Timer" />
 
-            <h2 id="temperature">--°C</h2>
+              <h3>Pomodoro</h3>
+            </article>
 
-            <p id="condition">Fetching weather...</p>
+            <article class="feature-card goal">
+              <img src="assets/images/goal.png" alt="Daily Goals" />
 
-            <small id="humidity">
-              Humidity: --
-            </small>
-
-          </div>
-
-        </article>
-
+              <h3>Goals</h3>
+            </article>
+          </section>
+        </div>
       </section>
-
-      <!-- Feature Cards -->
-      <section class="features">
-
-        <article class="feature-card todo">
-          <img
-            src="assets/images/todo.png"
-            alt="Todo List"
-          />
-          <h3>Todo</h3>
-        </article>
-
-        <article class="feature-card daily">
-          <img
-            src="assets/images/planner.png"
-            alt="Daily Planner"
-          />
-          <h3>Planner</h3>
-        </article>
-
-        <article class="feature-card motivate">
-          <img
-            src="assets/images/motivate.png"
-            alt="Motivation"
-          />
-          <h3>Motivation</h3>
-        </article>
-
-        <article class="feature-card timer">
-          <img
-            src="assets/images/timer.png"
-            alt="Study Timer"
-          />
-          <h3>Pomodoro</h3>
-        </article>
-
-        <article class="feature-card goal">
-          <img
-            src="assets/images/goal.png"
-            alt="Goals"
-          />
-          <h3>Goals</h3>
-        </article>
-
-      </section>
-
-    </div>
-
-  </section>
-
-</main>
-
-      <!-- ==========================
+    </main>
+    <!-- ==========================
      Personalized Task Manager
 ========================== -->
 
-      <div class="task-modal">
-        <!-- Header -->
+    <div
+      class="task-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="task-title"
+    >
+      <div class="task-modal__header">
+        <h1 id="task-title" class="task-modal__title">
+          Personalized Task List
+        </h1>
 
-        <div class="task-modal__header">
-          <h1 class="task-modal__title">Personalized Task List</h1>
-
-          <button class="task-modal__close">&times;</button>
-        </div>
-
-        <!-- Body -->
-
-        <div class="task-modal__body">
-          <!-- Form -->
-
-          <div class="task-form">
-            <form class="task-form__container" id="taskForm">
-              <input
-                class="task-form__input"
-                type="text"
-                id="taskTitle"
-                placeholder="Enter Task Title"
-              />
-
-              <textarea
-                class="task-form__textarea"
-                id="taskDetails"
-                placeholder="Enter Task Details"
-              ></textarea>
-
-              <label class="task-form__checkbox">
-                <input type="checkbox" id="importantTask" />
-
-                <span>Mark as Important</span>
-              </label>
-
-              <button type="submit" class="task-form__submit" id="addTaskBtn">
-                Add Task
-              </button>
-            </form>
-          </div>
-
-          <!-- Task List -->
-
-          <div class="task-list" id="taskList"></div>
-        </div>
+        <button
+          class="task-modal__close"
+          type="button"
+          aria-label="Close Task Modal"
+        >
+          &times;
+        </button>
       </div>
 
-      <!-- Daily Planner Modal -->
-      <div class="daily-planner">
-        <div class="daily-planner__header">
-          <h1 class="daily-planner__title">
-            Plan Your Day to Be More Productive
-          </h1>
+      <div class="task-modal__body">
+        <div class="task-form">
+          <form class="task-form__container" id="taskForm">
+            <input
+              class="task-form__input"
+              type="text"
+              id="taskTitle"
+              placeholder="Enter Task Title"
+            />
 
-          <button class="daily-planner__close">&times;</button>
+            <textarea
+              class="task-form__textarea"
+              id="taskDetails"
+              placeholder="Enter Task Details"
+            ></textarea>
+
+            <label class="task-form__checkbox">
+              <input type="checkbox" id="importantTask" />
+
+              <span> Mark as Important </span>
+            </label>
+
+            <button type="submit" class="task-form__submit" id="addTaskBtn">
+              Add Task
+            </button>
+          </form>
         </div>
 
-        <div class="daily-planner__container">
-          <div class="daily-planner__grid">
-            <div class="daily-planner__column">
-              <div class="time-slot">
-                <label>6:00 - 7:00</label>
-                <input type="text" placeholder="....." />
-              </div>
-
-              <div class="time-slot">
-                <label>8:00 - 9:00</label>
-                <input type="text" placeholder="....." />
-              </div>
-
-              <div class="time-slot">
-                <label>10:00 - 11:00</label>
-                <input type="text" placeholder="....." />
-              </div>
-
-              <div class="time-slot">
-                <label>12:00 - 13:00</label>
-                <input type="text" placeholder="....." />
-              </div>
-
-              <div class="time-slot">
-                <label>14:00 - 15:00</label>
-                <input type="text" placeholder="....." />
-              </div>
-
-              <div class="time-slot">
-                <label>16:00 - 17:00</label>
-                <input type="text" placeholder="....." />
-              </div>
-
-              <div class="time-slot">
-                <label>18:00 - 19:00</label>
-                <input type="text" placeholder="....." />
-              </div>
-
-              <div class="time-slot">
-                <label>20:00 - 21:00</label>
-                <input type="text" placeholder="....." />
-              </div>
-
-              <div class="time-slot">
-                <label>22:00 - 23:00</label>
-                <input type="text" placeholder="....." />
-              </div>
-            </div>
-
-            <div class="daily-planner__column">
-              <div class="time-slot">
-                <label>7:00 - 8:00</label>
-                <input type="text" placeholder="....." />
-              </div>
-
-              <div class="time-slot">
-                <label>9:00 - 10:00</label>
-                <input type="text" placeholder="....." />
-              </div>
-
-              <div class="time-slot">
-                <label>11:00 - 12:00</label>
-                <input type="text" placeholder="....." />
-              </div>
-
-              <div class="time-slot">
-                <label>13:00 - 14:00</label>
-                <input type="text" placeholder="....." />
-              </div>
-
-              <div class="time-slot">
-                <label>15:00 - 16:00</label>
-                <input type="text" placeholder="....." />
-              </div>
-
-              <div class="time-slot">
-                <label>17:00 - 18:00</label>
-                <input type="text" placeholder="....." />
-              </div>
-
-              <div class="time-slot">
-                <label>19:00 - 20:00</label>
-                <input type="text" placeholder="....." />
-              </div>
-
-              <div class="time-slot">
-                <label>21:00 - 22:00</label>
-                <input type="text" placeholder="....." />
-              </div>
-
-              <div class="time-slot">
-                <label>23:00 - 24:00</label>
-                <input type="text" placeholder="....." />
-              </div>
-            </div>
-          </div>
-        </div>
+        <div class="task-list" id="taskList"></div>
       </div>
+    </div>
 
-      <!-- Motivational Quotes Modal -->
-      <div class="quotes-modal">
-        <button class="quotes-modal__close">&times;</button>
-
-        <div class="quotes-modal__container">
-          <div class="quotes-card">
-            <h2 class="quotes-card__title">Quote of the Day</h2>
-
-            <div class="quotes-card__content">
-              <blockquote class="quotes-card__quote" id="quote">
-                God is always with me.
-              </blockquote>
-
-              <cite class="quotes-card__author" id="author">
-                — Amit Kumar Sharma
-              </cite>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ==========================
-     Study With Me Modal
-=========================== -->
-
-      <div class="study-modal">
-        <div class="study-modal__header">
-          <h1 class="study-modal__title">Study With Me</h1>
-
-          <button class="study-modal__close">&times;</button>
-        </div>
-
-        <div class="study-modal__body">
-          <div class="study-card">
-            <h2 class="study-card__heading">Work Session</h2>
-
-            <div class="study-card__timer" id="timer">25:00</div>
-
-            <div class="study-card__controls">
-              <button
-                class="study-card__btn study-card__btn--start"
-                id="startBtn"
-              >
-                Start
-              </button>
-
-              <button
-                class="study-card__btn study-card__btn--pause"
-                id="pauseBtn"
-              >
-                Pause
-              </button>
-
-              <button
-                class="study-card__btn study-card__btn--reset"
-                id="resetBtn"
-              >
-                Reset
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ==========================
-     Daily Goal Manager
+    <!-- ==========================
+      Daily Planner Modal
 ========================== -->
 
-      <!-- Goal Open Button (Dashboard Icon/Button) -->
+    <div
+      class="daily-planner"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="planner-title"
+    >
+      <header class="daily-planner__header">
+        <h1 id="planner-title" class="daily-planner__title">
+          Plan Your Day to Be More Productive
+        </h1>
 
-      <button class="goal">Goals</button>
+        <button
+          class="daily-planner__close"
+          type="button"
+          aria-label="Close Planner"
+        >
+          &times;
+        </button>
+      </header>
 
-      <!-- Goal Modal -->
+      <div class="daily-planner__container">
+        <div class="daily-planner__grid">
+          <div class="daily-planner__column">
+            <div class="time-slot">
+              <label>6:00 - 7:00</label>
+              <input type="text" placeholder="....." />
+            </div>
 
-      <div class="goal-modal">
-        <!-- Modal Header -->
+            <div class="time-slot">
+              <label>8:00 - 9:00</label>
+              <input type="text" placeholder="....." />
+            </div>
 
-        <header class="goal-modal__header">
-          <h1 class="goal-modal__title">Daily Goals</h1>
+            <div class="time-slot">
+              <label>10:00 - 11:00</label>
+              <input type="text" placeholder="....." />
+            </div>
 
-          <button class="goal-modal__close" aria-label="Close Goal Modal">
-            &times;
-          </button>
-        </header>
+            <div class="time-slot">
+              <label>12:00 - 13:00</label>
+              <input type="text" placeholder="....." />
+            </div>
 
-        <!-- Modal Body -->
+            <div class="time-slot">
+              <label>14:00 - 15:00</label>
+              <input type="text" placeholder="....." />
+            </div>
 
-        <main class="goal-modal__body">
-          <!-- Goal Form Section -->
+            <div class="time-slot">
+              <label>16:00 - 17:00</label>
+              <input type="text" placeholder="....." />
+            </div>
 
-          <section class="goal-form">
-            <form class="goal-form__container" id="goalForm">
-              <!-- Goal Title -->
+            <div class="time-slot">
+              <label>18:00 - 19:00</label>
+              <input type="text" placeholder="....." />
+            </div>
 
-              <input
-                class="goal-form__input"
-                type="text"
-                id="goalTitle"
-                name="goalTitle"
-                placeholder="Enter Goal Title"
-              />
+            <div class="time-slot">
+              <label>20:00 - 21:00</label>
+              <input type="text" placeholder="....." />
+            </div>
 
-              <!-- Goal Description -->
+            <div class="time-slot">
+              <label>22:00 - 23:00</label>
+              <input type="text" placeholder="....." />
+            </div>
+          </div>
 
-              <textarea
-                class="goal-form__textarea"
-                id="goalDetails"
-                name="goalDetails"
-                placeholder="Enter Goal Details"
-              ></textarea>
+          <div class="daily-planner__column">
+            <div class="time-slot">
+              <label>7:00 - 8:00</label>
+              <input type="text" placeholder="....." />
+            </div>
 
-              <!-- Submit Button -->
+            <div class="time-slot">
+              <label>9:00 - 10:00</label>
+              <input type="text" placeholder="....." />
+            </div>
 
-              <button type="submit" class="goal-form__submit">Add Goal</button>
-            </form>
-          </section>
+            <div class="time-slot">
+              <label>11:00 - 12:00</label>
+              <input type="text" placeholder="....." />
+            </div>
 
-          <!-- Goal List Section -->
+            <div class="time-slot">
+              <label>13:00 - 14:00</label>
+              <input type="text" placeholder="....." />
+            </div>
 
-          <section class="goal-list" id="goalList">
-            <!-- Goals will be generated using JavaScript -->
-          </section>
-        </main>
+            <div class="time-slot">
+              <label>15:00 - 16:00</label>
+              <input type="text" placeholder="....." />
+            </div>
+
+            <div class="time-slot">
+              <label>17:00 - 18:00</label>
+              <input type="text" placeholder="....." />
+            </div>
+
+            <div class="time-slot">
+              <label>19:00 - 20:00</label>
+              <input type="text" placeholder="....." />
+            </div>
+
+            <div class="time-slot">
+              <label>21:00 - 22:00</label>
+              <input type="text" placeholder="....." />
+            </div>
+
+            <div class="time-slot">
+              <label>23:00 - 24:00</label>
+              <input type="text" placeholder="....." />
+            </div>
+          </div>
+        </div>
       </div>
-    </main>
-    <script src="script.js"></script>
-    <sup></sup>
+    </div>
+
+    <!-- ==========================
+     Motivational Quotes Modal
+========================== -->
+
+    <div class="quotes-modal" role="dialog" aria-modal="true">
+      <button
+        class="quotes-modal__close"
+        type="button"
+        aria-label="Close Quotes"
+      >
+        &times;
+      </button>
+
+      <div class="quotes-modal__container">
+        <div class="quotes-card">
+          <h2 class="quotes-card__title">Quote of the Day</h2>
+
+          <div class="quotes-card__content">
+            <blockquote class="quotes-card__quote" id="quote">
+              God is always with me.
+            </blockquote>
+
+            <cite class="quotes-card__author" id="author">
+              — Amit Kumar Sharma
+            </cite>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==========================
+      Study With Me
+========================== -->
+
+    <div class="study-modal" role="dialog" aria-modal="true">
+      <div class="study-modal__header">
+        <h1 class="study-modal__title">Study With Me</h1>
+
+        <button
+          class="study-modal__close"
+          type="button"
+          aria-label="Close Study"
+        >
+          &times;
+        </button>
+      </div>
+
+      <div class="study-modal__body">
+        <div class="study-card">
+          <h2 class="study-card__heading">Work Session</h2>
+
+          <div class="study-card__timer" id="timer">25:00</div>
+
+          <div class="study-card__controls">
+            <button
+              class="study-card__btn study-card__btn--start"
+              id="startBtn"
+              type="button"
+            >
+              Start
+            </button>
+
+            <button
+              class="study-card__btn study-card__btn--pause"
+              id="pauseBtn"
+              type="button"
+            >
+              Pause
+            </button>
+
+            <button
+              class="study-card__btn study-card__btn--reset"
+              id="resetBtn"
+              type="button"
+            >
+              Reset
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==========================
+        Daily Goals
+========================== -->
+
+    <button class="goal-open-btn" type="button">Goals</button>
+
+    <div class="goal-modal" role="dialog" aria-modal="true">
+      <header class="goal-modal__header">
+        <h1 class="goal-modal__title">Daily Goals</h1>
+
+        <button
+          class="goal-modal__close"
+          type="button"
+          aria-label="Close Goals"
+        >
+          &times;
+        </button>
+      </header>
+
+      <section class="goal-modal__body">
+        <section class="goal-form">
+          <form class="goal-form__container" id="goalForm">
+            <input
+              class="goal-form__input"
+              type="text"
+              id="goalTitle"
+              name="goalTitle"
+              placeholder="Enter Goal Title"
+            />
+
+            <textarea
+              class="goal-form__textarea"
+              id="goalDetails"
+              name="goalDetails"
+              placeholder="Enter Goal Details"
+            ></textarea>
+
+            <button type="submit" class="goal-form__submit">Add Goal</button>
+          </form>
+        </section>
+
+        <section class="goal-list" id="goalList"></section>
+      </section>
+    </div>
+
+    <script src="script.js" defer></script>
   </body>
 </html>
