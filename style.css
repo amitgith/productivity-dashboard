@@ -3,14 +3,18 @@
 ================================ */
 
 :root {
-  --primary: #6366f1;
+  --primary: #d6582a;
   --secondary: #38bdf8;
 
   --bg-color: #f8fafc;
-  --text-color: #1e293b;
+  --text-color: #f1f1f1;
 
+  /* Glass */
   --glass-bg: rgba(255, 255, 255, 0.18);
-  --glass-border: rgba(255, 255, 255, 0.35);
+  --glass-border: rgba(255, 255, 255, 0.28);
+  --glass-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+
+  --radius: 20px;
 }
 
 /* ===============================
@@ -18,14 +22,16 @@
 ================================ */
 
 body.dark {
-  --primary: #818cf8;
+  --primary: #d6582a;
   --secondary: #38bdf8;
 
-  --bg-color: #020617;
+  --bg-color: #0f172a;
   --text-color: #f8fafc;
 
-  --glass-bg: rgba(15, 23, 42, 0.55);
-  --glass-border: rgba(255, 255, 255, 0.15);
+  /* Professional Dark Glass */
+  --glass-bg: rgba(15, 23, 42, 0.45);
+  --glass-border: rgba(255, 255, 255, 0.12);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
 }
 
 /* ===============================
@@ -133,97 +139,185 @@ main {
 
 .hero {
   width: 100%;
-
-  height: 100vh;
-
+  min-height: 100vh;
   position: relative;
+  overflow: hidden;
 }
 
 .background-image {
   position: absolute;
-
   inset: 0;
-
   width: 100%;
-
   height: 100%;
-
   object-fit: cover;
-
   z-index: 0;
 }
 
 .overlay {
   position: absolute;
-
   inset: 0;
-
   background: var(--overlay);
-
   z-index: 1;
 }
 
 .hero-content {
-  height: 100%;
-
-  padding: 100px 40px 40px;
+  min-height: 100vh;
+  padding: clamp(80px, 10vw, 100px) clamp(20px, 5vw, 40px) 40px;
 
   display: flex;
-
   justify-content: space-between;
-
   align-items: flex-start;
+  gap: 2rem;
+
   position: relative;
   z-index: 2;
 }
 
+/* Tablet Responsive */
+@media (max-width: 900px) {
+  .hero-content {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+
+    padding: 100px 30px 40px;
+    gap: 3rem;
+  }
+}
+
+/* Mobile Responsive */
+@media (max-width: 600px) {
+  .hero {
+    min-height: 100svh;
+  }
+
+  .background-image {
+    object-position: center;
+  }
+
+  .hero-content {
+    min-height: 100svh;
+
+    padding: 90px 20px 30px;
+
+    gap: 2rem;
+  }
+}
+
 /* ===============================
-        Clock + Weather
+        Top Bar
 ================================ */
 
 .top-bar {
   width: 420px;
 }
 
+/* ===============================
+    Clock & Weather Card
+================================ */
+
 .clock-card,
 .weather-card {
-  padding: 1.5rem;
+  padding: 2rem;
 
-  border-radius: var(--radius);
+  border-radius: 24px;
 
   background: var(--glass-bg);
 
   border: 1px solid var(--glass-border);
 
-  backdrop-filter: var(--blur);
+  backdrop-filter: blur(18px);
+
+  -webkit-backdrop-filter: blur(18px);
 
   box-shadow: var(--shadow);
 
-  color: white;
+  color: var(--text-color);
 
   margin-bottom: 1.5rem;
+
+  transition: all 0.35s ease;
 }
+
+.clock-card:hover,
+.weather-card:hover {
+  transform: translateY(-6px);
+
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+}
+
+/* ===============================
+          Date
+================================ */
 
 .date {
   display: flex;
 
-  gap: 0.5rem;
+  align-items: center;
+
+  gap: 0.6rem;
 
   flex-wrap: wrap;
-
-  font-size: 1rem;
 }
 
+/* Week Day */
+
+#dayName {
+  font-size: 1.5rem;
+
+  font-weight: 800;
+
+  color: #fbbf24;
+
+  letter-spacing: 0.8px;
+}
+
+/* Date */
+
+#dayNum,
+#month,
+#year {
+  font-size: 1.05rem;
+
+  font-weight: 600;
+
+  color: #d1d5db;
+}
+
+/* ===============================
+            Time
+================================ */
+
 .time {
-  margin-top: 15px;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
 
-  font-size: 3rem;
+  font-size: 4rem;
+  font-weight: 800;
 
-  font-weight: 700;
+  font-variant-numeric: tabular-nums;
 }
 
 #period {
-  font-size: 1.2rem;
+  width: 40px;
+
+  margin-left: 0.8rem;
+
+  font-size: 1rem;
+  font-weight: 700;
+
+  color: #38bdf8;
+}
+
+#hour,
+#minutes,
+#seconds {
+  display: inline-block;
+  width: 70px;
+  text-align: center;
 }
 
 /* ===============================
@@ -235,27 +329,50 @@ main {
 
   align-items: center;
 
-  gap: 1rem;
+  gap: 1.5rem;
 }
 
 .weather-icon img {
-  width: 70px;
+  width: 90px;
 
-  height: 70px;
+  height: 90px;
+
+  object-fit: contain;
+
+  filter: drop-shadow(0 6px 15px rgba(0, 0, 0, 0.25));
 }
 
 .weather-info h2 {
-  font-size: 2rem;
+  font-size: 2.8rem;
+
+  font-weight: 800;
+
+  color: #ffffff;
+
+  margin-bottom: 0.2rem;
 }
 
 .weather-info h3 {
+  font-size: 1.3rem;
+
+  font-weight: 700;
+
+  color: #38bdf8;
+
   margin-bottom: 0.4rem;
 }
 
 .weather-info p {
-  margin-bottom: 0.4rem;
-}
+  font-size: 1rem;
 
+  font-weight: 500;
+
+  color: #d1d5db;
+
+  margin-bottom: 0.3rem;
+
+  line-height: 1.5;
+}
 /* ===============================
         Feature Cards
 ================================ */
@@ -820,30 +937,43 @@ button:hover {
 
 .quotes-card__title {
   font-size: 2.5rem;
-
-  color: var(--white);
-
+  font-weight: 700;
+  color: #fbbf24; /* Gold */
   margin-bottom: 2rem;
 }
 
 .quotes-card__quote {
+  position: relative;
+
   font-size: 2rem;
+  font-weight: 600;
+  line-height: 1.8;
 
-  font-weight: 700;
-
-  line-height: 1.5;
-
-  color: var(--white);
-
+  color: #f8fafc; /* White */
   margin-bottom: 2rem;
+  padding: 0 1.5rem;
+}
+
+.quotes-card__quote::before {
+  content: "❝";
+  font-size: 3rem;
+  color: #38bdf8;
+  margin-right: 0.4rem;
+}
+
+.quotes-card__quote::after {
+  content: "❞";
+  font-size: 3rem;
+  color: #38bdf8;
+  margin-left: 0.4rem;
 }
 
 .quotes-card__author {
   font-size: 1.3rem;
-
-  font-weight: 600;
-
-  color: var(--white);
+  font-weight: 700;
+  color: #38bdf8; /* Sky Blue */
+  text-align: right;
+  letter-spacing: 0.5px;
 }
 
 /* ===============================
@@ -1201,9 +1331,9 @@ button:hover {
   transition: var(--transition);
 }
 
-.goal-form__submit:hover {
+/* .goal-form__submit:hover {
   background: var(--secondary);
-}
+} */
 
 /* Goal Card */
 

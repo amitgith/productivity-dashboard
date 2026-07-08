@@ -395,33 +395,63 @@ quotesCloseBtn.addEventListener("click", () => {
 // ======================================
 // Quotes API
 // ======================================
-
 const API_KEY = "DXgx56BhRuHTfFaEz13q9IoCxCt4gjlY1YPBPh8F";
-
 const API_URL = "https://api.api-ninjas.com/v1/quotes";
 
 async function loadQuote() {
+  // Show cached quote immediately
+  const savedQuote = localStorage.getItem("quote");
+  const savedAuthor = localStorage.getItem("author");
+
+  if (savedQuote && savedAuthor) {
+    quoteText.textContent = savedQuote;
+    quoteAuthor.textContent = `— ${savedAuthor}`;
+  } else {
+    quoteText.textContent = "Loading quote...";
+    quoteAuthor.textContent = "";
+  }
+
   try {
     const response = await fetch(API_URL, {
       headers: {
         "X-Api-Key": API_KEY,
       },
+      cache: "no-store",
     });
+
+    if (!response.ok) {
+      throw new Error(`HTTP Error: ${response.status}`);
+    }
 
     const data = await response.json();
 
-    quoteText.textContent = data[0].quote;
+    if (!Array.isArray(data) || data.length === 0) {
+      throw new Error("No quote received.");
+    }
 
-    quoteAuthor.textContent = `— ${data[0].author}`;
+    const { quote, author } = data[0];
+
+    // Update UI
+    quoteText.textContent = quote;
+    quoteAuthor.textContent = `— ${author}`;
+
+    // Save to localStorage
+    localStorage.setItem("quote", quote);
+    localStorage.setItem("author", author);
   } catch (error) {
-    console.error(error);
+    console.error("Quote API Error:", error);
 
-    quoteText.textContent =
-      "Stay positive. Keep learning. Success will follow.";
-
-    quoteAuthor.textContent = "— Unknown";
+    // Show fallback only if nothing is cached
+    if (!savedQuote) {
+      quoteText.textContent =
+        "Stay positive. Keep learning. Success will follow.";
+      quoteAuthor.textContent = "— Unknown";
+    }
   }
 }
+
+// Load quote when page opens
+document.addEventListener("DOMContentLoaded", loadQuote);
 
 // ======================================
 // Study With Me Modal
@@ -536,31 +566,57 @@ function resetTimer() {
 // ======================================
 
 const dailyPlannerBtn = document.querySelector(".daily");
-
 const dailyPlannerModal = document.querySelector(".daily-planner");
-
 const dailyPlannerCloseBtn = document.querySelector(".daily-planner__close");
 
-// Open
+// Restore last state
+const modalState = localStorage.getItem("dailyPlannerModal");
 
+if (modalState === "open") {
+  dailyPlannerModal.style.display = "block";
+} else {
+  dailyPlannerModal.style.display = "none";
+}
+
+// Open
 dailyPlannerBtn.addEventListener("click", () => {
   dailyPlannerModal.style.display = "block";
+  localStorage.setItem("dailyPlannerModal", "open");
 });
 
 // Close
-
 dailyPlannerCloseBtn.addEventListener("click", () => {
   dailyPlannerModal.style.display = "none";
+  localStorage.setItem("dailyPlannerModal", "closed");
 });
 
 // Outside Click
-
 dailyPlannerModal.addEventListener("click", (event) => {
   if (event.target === dailyPlannerModal) {
     dailyPlannerModal.style.display = "none";
+    localStorage.setItem("dailyPlannerModal", "closed");
   }
 });
 
+// ===============================
+// Daily Planner - Auto Save
+// ===============================
+
+const plannerInputs = document.querySelectorAll(".time-slot input");
+
+// Load saved data
+plannerInputs.forEach((input, index) => {
+  const savedValue = localStorage.getItem(`planner-${index}`);
+
+  if (savedValue) {
+    input.value = savedValue;
+  }
+
+  // Save on typing
+  input.addEventListener("input", () => {
+    localStorage.setItem(`planner-${index}`, input.value);
+  });
+});
 // ================================
 // Weather Elements
 // ================================
@@ -612,23 +668,49 @@ function updateBackground() {
   }
 }
 
+// ===============================
 // Theme Toggle
+// ===============================
 
 const themeToggle = document.getElementById("theme-toggle");
-
 const dayIcon = document.querySelector(".day");
 const nightIcon = document.querySelector(".night");
 
+// Restore saved theme
+const savedTheme = localStorage.getItem("theme");
+
+if (savedTheme === "dark") {
+  document.body.classList.add("dark");
+  dayIcon.classList.add("hide");
+  nightIcon.classList.remove("hide");
+  backgroundImage.src = "assets/images/night.jpg";
+} else {
+  document.body.classList.remove("dark");
+  dayIcon.classList.remove("hide");
+  nightIcon.classList.add("hide");
+  updateBackground();
+}
+
+// Toggle Theme
 themeToggle.addEventListener("click", () => {
   document.body.classList.toggle("dark");
 
-  dayIcon.classList.toggle("hide");
-  nightIcon.classList.toggle("hide");
+  const isDark = document.body.classList.contains("dark");
 
-  if (document.body.classList.contains("dark")) {
+  if (isDark) {
+    dayIcon.classList.add("hide");
+    nightIcon.classList.remove("hide");
+
     backgroundImage.src = "assets/images/night.jpg";
+
+    localStorage.setItem("theme", "dark");
   } else {
+    dayIcon.classList.remove("hide");
+    nightIcon.classList.add("hide");
+
     updateBackground();
+
+    localStorage.setItem("theme", "light");
   }
 });
 
@@ -731,7 +813,7 @@ async function getWeather() {
 
     humidity.textContent = `Humidity: ${data.main.humidity}%`;
 
-    weatherIcon.src = `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
+    weatherIcon.src = `assets/images/weather.png`;
 
     weatherIcon.alt = data.weather[0].main;
   } catch (error) {
