@@ -15,14 +15,6 @@ const importantTaskInput = document.querySelector("#importantTask");
 
 const taskList = document.querySelector("#taskList");
 
-// Modal Elements
-
-const taskModal = document.querySelector(".task-modal");
-
-const taskOpenBtn = document.querySelector(".todo");
-
-const taskCloseBtn = document.querySelector(".task-modal__close");
-
 // Local Storage Data
 
 let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
@@ -46,23 +38,12 @@ function renderTasks() {
     }`;
 
     taskCard.innerHTML = `
-
-
       <div class="task-card__content">
-
-
         <h3>
-
           ${task.title}
-
           ${task.isImportant ? "<sup>IMP</sup>" : ""}
-
         </h3>
-
-
-
         <p>
-
           ${task.details}
 
         </p>
@@ -220,6 +201,14 @@ taskList.addEventListener("click", (event) => {
   }
 });
 
+// Modal Elements
+
+const taskModal = document.querySelector(".task-modal");
+
+const taskOpenBtn = document.querySelector(".feature-card.todo");
+
+const taskCloseBtn = document.querySelector(".task-modal__close");
+
 // ==========================
 // Modal Open
 // ==========================
@@ -255,7 +244,7 @@ taskModal.addEventListener("click", (event) => {
 
 // Modal
 
-const goalOpenBtn = document.querySelector(".goal");
+const goalOpenBtn = document.querySelector(".feature-card.goal");
 
 const goalModal = document.querySelector(".goal-modal");
 
@@ -668,113 +657,173 @@ dailyPlannerCloseBtn.addEventListener("click", () => {
   dailyPlannerModal.style.display = "none";
 });
 
-// background videos and digit clock
+// ===============================
+// PRODUCTIVITY DASHBOARD
+// ===============================
 
-// function changeBackgroundVideo() {
-//   const hour = new Date().getHours();
+// ---------- Elements ----------
 
-//   const video = document.getElementById("bg-video");
-//   const source = document.getElementById("video-source");
+const backgroundImage = document.getElementById("bg-image");
+const themeToggle = document.getElementById("theme-toggle");
 
-//   if (hour >= 6 && hour < 12) {
-//     // Morning / Day
-//     source.src = "assets/videos/1.mp4";
-//   } else if (hour >= 12 && hour < 18) {
-//     // Afternoon
-//     source.src = "assets/videos/2.mp4";
-//   } else {
-//     // Night
-//     source.src = "assets/videos/3.mp4";
+const dayIcon = document.querySelector(".day");
+const nightIcon = document.querySelector(".night");
+
+// Weather Elements
+
+const cityName = document.getElementById("city");
+const temperature = document.getElementById("temperature");
+const weatherCondition = document.getElementById("condition");
+const humidity = document.getElementById("humidity");
+const weatherIcon = document.getElementById("weather-icon");
+
+// Clock Elements
+
+const dayName = document.getElementById("dayname");
+const month = document.getElementById("month");
+const dayNum = document.getElementById("daynum");
+const year = document.getElementById("year");
+
+const hour = document.getElementById("hour");
+const minutes = document.getElementById("minutes");
+const seconds = document.getElementById("seconds");
+const period = document.getElementById("period");
+
+// ===============================
+// Background Image
+// ===============================
+
+function updateBackground() {
+  const currentHour = new Date().getHours();
+
+  if (currentHour >= 6 && currentHour < 12) {
+    backgroundImage.src = "assets/images/morning.jpg";
+  } else if (currentHour >= 12 && currentHour < 18) {
+    backgroundImage.src = "assets/images/afternoon.jpg";
+  } else {
+    backgroundImage.src = "assets/images/night.jpg";
+  }
+}
+
+// ===============================
+// Digital Clock
+// ===============================
+
+const weekDays = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+];
+
+const months = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
+function updateClock() {
+  const now = new Date();
+
+  let currentHour = now.getHours();
+  let currentPeriod = "AM";
+
+  if (currentHour >= 12) {
+    currentPeriod = "PM";
+  }
+
+  if (currentHour > 12) {
+    currentHour -= 12;
+  }
+
+  if (currentHour === 0) {
+    currentHour = 12;
+  }
+
+  dayName.textContent = weekDays[now.getDay()];
+  month.textContent = months[now.getMonth()];
+  dayNum.textContent = String(now.getDate()).padStart(2, "0");
+  year.textContent = now.getFullYear();
+
+  hour.textContent = String(currentHour).padStart(2, "0");
+  minutes.textContent = String(now.getMinutes()).padStart(2, "0");
+  seconds.textContent = String(now.getSeconds()).padStart(2, "0");
+
+  period.textContent = currentPeriod;
+}
+
+// ===============================
+// Dark Mode
+// ===============================
+
+themeToggle.addEventListener("click", () => {
+  document.body.classList.toggle("dark");
+
+  dayIcon.classList.toggle("hide");
+  nightIcon.classList.toggle("hide");
+});
+
+// ===============================
+// Weather API
+// ===============================
+
+// const API_KEY = "YOUR_API_KEY";
+
+// // Change city if you want
+// const CITY = "Raigarh";
+
+// async function getWeather() {
+//   try {
+//     const response = await fetch(
+//       `https://api.openweathermap.org/data/2.5/weather?q=${CITY}&units=metric&appid=${API_KEY}`,
+//     );
+
+//     if (!response.ok) {
+//       throw new Error("Unable to fetch weather.");
+//     }
+
+//     const data = await response.json();
+
+//     cityName.textContent = data.name;
+
+//     temperature.textContent = `${Math.round(data.main.temp)}°C`;
+
+//     weatherCondition.textContent = data.weather[0].description;
+
+//     humidity.textContent = `Humidity : ${data.main.humidity}%`;
+
+//     weatherIcon.src = `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
+
+//     weatherIcon.alt = data.weather[0].main;
+//   } catch (error) {
+//     cityName.textContent = "Weather Error";
+//     temperature.textContent = "--°";
+//     weatherCondition.textContent = error.message;
+//     humidity.textContent = "";
 //   }
-
-//   video.load(); // New video load karega
 // }
 
-// function updateClock() {
-//   function initClock() {
-//     updateClock();
-//     window.setInterval("updateClock()", 1);
-//   }
+// ===============================
+// Initialize
+// ===============================
 
-//   function updateClock() {
-//     var now = new Date();
-//     var dname = now.getDay();
-//     mo = now.getMonth();
-//     dnum = now.getDate();
-//     yr = now.getFullYear();
-//     hou = now.getHours();
-//     min = now.getMinutes();
-//     sec = now.getSeconds();
-//     pe = "AM";
-//     if (hou == 0) {
-//       hou = 12;
-//     }
-//     if (hou > 12) {
-//       hou = hou - 12;
-//       pe = "PM";
-//     }
-//     Number.prototype.pad = function (digits) {
-//       let n = this.toString();
-//       while (n.length < digits) {
-//         n = "0" + n;
-//       }
-//       return n;
-//     };
-//     const ids = [
-//       "dayname",
-//       "month",
-//       "daynum",
-//       "year",
-//       "hour",
-//       "minutes",
-//       "seconds",
-//       "period",
-//     ];
-//     var months = [
-//       "January",
-//       "February",
-//       "March",
-//       "April",
-//       "May",
-//       "June",
-//       "July",
-//       "August",
-//       "September",
-//       "October",
-//       "November",
-//       "December",
-//     ];
-//     var weeks = [
-//       "Sunday",
-//       "Monday",
-//       "Tuesday",
-//       "Wednesday",
-//       "Thursday",
-//       "Friday",
-//       "Saturday",
-//     ];
-//     var values = [
-//       dnum.pad(2),
-//       months[mo],
-//       yr,
-//       weeks[dname],
-//       hou.pad(2),
-//       min.pad(2),
-//       sec.pad(2),
-//       pe,
-//     ];
-//     for (let i = 0; i < ids.length; i++) {
-//       document.getElementById(ids[i]).firstChild.nodeValue = values[i];
-//     }
-//   }
+// updateClock();
+// updateBackground();
+// getWeather();
 
-//   changeBackgroundVideo();
-// }
+// setInterval(updateClock, 1000);
 
-// function initClock() {
-//   updateClock();
-//   window.setInterval(updateClock(), 1000);
-// }
-// initClock();
-// changeBackgroundVideo();
-// setInterval(changeBackgroundVideo, 60000);
+// // Check every minute if background should change
+// setInterval(updateBackground, 60000);

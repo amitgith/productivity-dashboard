@@ -1,8 +1,11 @@
+/* =============== Global =============== */
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
+
 html,
 body {
   height: 100%;
@@ -20,76 +23,208 @@ body {
     "Helvetica Neue",
     sans-serif;
 }
-main {
-  height: 100%;
-  width: 100%;
-  /* background-color: royalblue; */
+
+body {
+  overflow: hidden;
 }
 
-/* video seting  */
-#bg-video {
-  max-width: 1250px;
-  height: 100%;
-  position: absolute;
-  z-index: -99;
+main {
+  width: 100%;
+  height: 100vh;
 }
-/* styling Dashboard Navigation styling */
+
+/* =============== Navbar =============== */
 
 .navbar {
-  height: 5%;
+  height: 70px;
   width: 100%;
+  padding: 0 2rem;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: rgb(33, 131, 207);
-  color: white;
-  padding: 2rem 1rem;
+
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(10px);
+
+  color: #fff;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
 }
-.dark-mode {
-  display: flex;
-  align-items: center;
+
+.logo {
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.theme-toggle {
+  background: transparent;
+  border: none;
+  color: white;
   cursor: pointer;
 }
-.dark-mode span i {
+
+.theme-toggle i {
   font-size: 1.8rem;
 }
-.dark-mode .night {
+
+.night {
   display: none;
 }
-.section-container {
-  height: 100%;
+
+/* =============== Hero =============== */
+
+.hero {
   width: 100%;
+  height: 100vh;
+  position: relative;
 }
-.section-box {
+
+/* Background */
+
+.background-image {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+  z-index: -2;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+
+  background: rgba(0, 0, 0, 0.35);
+  z-index: -1;
+}
+
+/* =============== Hero Content =============== */
+
+.hero-content {
+  height: 100%;
+  padding: 100px 40px 40px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+/* =============== Clock =============== */
+
+.top-bar {
+  width: 420px;
+}
+
+.clock-card,
+.weather-card {
+  padding: 1.5rem;
+  border-radius: 18px;
+
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(15px);
+
+  color: white;
+
+  margin-bottom: 1.5rem;
+}
+
+.date {
+  display: flex;
+  gap: 0.5rem;
+  font-size: 1rem;
+}
+
+.time {
+  margin-top: 15px;
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+/* =============== Weather =============== */
+
+.weather-card {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 1rem 1rem;
-  gap: 20rem;
+  gap: 1rem;
 }
-.timming {
-  height: 300px;
-  width: 100%;
-  background-color: red;
+
+.weather-icon img {
+  width: 70px;
+  height: 70px;
 }
-.feat-list {
-  width: 30%;
-  height: 100%;
+
+.weather-info h2 {
+  font-size: 2rem;
 }
-.list-box {
-  width: 50%;
+
+.weather-info h3 {
+  margin-bottom: 0.3rem;
+}
+
+.weather-info p {
+  margin-bottom: 0.3rem;
+}
+
+/* =============== Features =============== */
+
+.features {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 4rem;
-  background-color: gray;
-  padding: 1rem;
+  gap: 1.5rem;
 }
-.list-box img {
-  height: 100px;
-  width: 100px;
-  border-radius: 50%;
+
+.feature-card {
+  width: 110px;
+  text-align: center;
+
   cursor: pointer;
+}
+
+.feature-card img {
+  width: 100px;
+  height: 100px;
+
+  border-radius: 50%;
+  object-fit: cover;
+
+  border: 3px solid rgba(255, 255, 255, 0.8);
+
+  transition: 0.3s;
+}
+
+.feature-card img:hover {
+  transform: scale(1.08);
+}
+
+.feature-card h3 {
+  margin-top: 0.6rem;
+  color: white;
+  font-size: 0.95rem;
+}
+
+/* =============== Responsive =============== */
+
+@media (max-width: 768px) {
+  .hero-content {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .top-bar {
+    width: 100%;
+  }
+
+  .features {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 }
 /* timming styling */
 

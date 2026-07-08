@@ -13,78 +13,152 @@
   <body>
     <!-- <body onload="initClock()"> -->
     <!-- Main -->
-    <main>
-      <!-- Dashboard Navigation -->
-      <nav class="navbar">
-        <h1>Productivity Dashboard</h1>
-        <div class="dark-mode">
-          <span class="day"><i class="ri-sun-fill"></i></span>
-          <span class="night"><i class="ri-moon-fill"></i></span>
-        </div>
-      </nav>
-      <section class="section-container">
-        <video id="bg-video" autoplay muted loop playsinline>
-          <source
-            id="video-source"
-            src="assets/videos/1.mp4"
-            type="video/mp4"
-          />
-        </video>
-        <div class="section-box">
-          <div class="timming">
-            <div class="timming-date">
-              <div>
-                <div class="date">
-                  <span id="dayname">Day</span>
-                  <span id="month">month</span>
-                  <span id="daynum">Day</span>
-                  <span id="year">Year</span>
-                </div>
-                <div class="date">
-                  <span id="hour">00</span>: <span id="minutes">00</span>:
-                  <span id="seconds">00</span>:
-                  <span id="period">AM</span>
-                </div>
-              </div>
-            </div>
-            <div class="weater">Weather Api</div>
+    <!-- Header -->
+<header class="navbar">
+  <h1 class="logo">Productivity Dashboard</h1>
+
+  <button
+    class="theme-toggle"
+    id="theme-toggle"
+    aria-label="Toggle Theme"
+  >
+    <span class="day">
+      <i class="ri-sun-fill"></i>
+    </span>
+
+    <span class="night">
+      <i class="ri-moon-fill"></i>
+    </span>
+  </button>
+</header>
+
+<!-- Main -->
+<main>
+
+  <!-- Hero Section -->
+  <section class="hero">
+
+    <!-- Background Image -->
+    <img
+      id="bg-image"
+      src="assets/images/morning.jpg"
+      alt="Mountain Landscape"
+      class="background-image"
+    />
+
+    <div class="overlay"></div>
+
+    <div class="hero-content">
+
+      <!-- Time & Weather -->
+      <section class="top-bar">
+
+        <!-- Clock -->
+        <article class="clock-card">
+
+          <div class="date">
+
+            <span id="dayname">Monday</span>
+
+            <span id="month">January</span>
+
+            <span id="daynum">01</span>
+
+            <span id="year">2026</span>
+
           </div>
-          <div class="feat-list">
-            <div class="list-box">
-              <div class="todo">
-                <img
-                  src="https://images.unsplash.com/photo-1641261689141-ee46b8a0470c?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                  alt=""
-                />
-              </div>
-              <div class="daily">
-                <img
-                  src="https://images.unsplash.com/photo-1529651737248-dad5e287768e?q=80&w=765&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                  alt=""
-                />
-              </div>
-              <div class="motivate">
-                <img
-                  src="https://plus.unsplash.com/premium_photo-1723619021737-df1d775eccc8?q=80&w=1169&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                  alt=""
-                />
-              </div>
-              <div class="timer">
-                <img
-                  src="https://images.unsplash.com/photo-1664994817539-8a865f12dc6c?q=80&w=765&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                  alt=""
-                />
-              </div>
-              <div class="goal">
-                <img
-                  src="https://plus.unsplash.com/premium_photo-1705010662254-97e7d82cd182?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                  alt=""
-                />
-              </div>
-            </div>
+
+          <div class="time">
+
+            <span id="hour">00</span> :
+            <span id="minutes">00</span> :
+            <span id="seconds">00</span>
+
+            <span id="period">AM</span>
+
           </div>
-        </div>
+
+        </article>
+
+        <!-- Weather -->
+        <article class="weather-card">
+
+          <div class="weather-icon">
+            <img
+              id="weather-icon"
+              src=""
+              alt="Weather Icon"
+            />
+          </div>
+
+          <div class="weather-info">
+
+            <h3 id="city">Loading...</h3>
+
+            <h2 id="temperature">--°C</h2>
+
+            <p id="condition">Fetching weather...</p>
+
+            <small id="humidity">
+              Humidity: --
+            </small>
+
+          </div>
+
+        </article>
+
       </section>
+
+      <!-- Feature Cards -->
+      <section class="features">
+
+        <article class="feature-card todo">
+          <img
+            src="https://images.unsplash.com/photo-1641261689141-ee46b8a0470c"
+            alt="Todo List"
+          />
+          <h3>Todo</h3>
+        </article>
+
+        <article class="feature-card daily">
+          <img
+            src="https://images.unsplash.com/photo-1529651737248-dad5e287768e"
+            alt="Daily Planner"
+          />
+          <h3>Planner</h3>
+        </article>
+
+        <article class="feature-card motivate">
+          <img
+            src="https://images.unsplash.com/photo-1723619021737-df1d775eccc8"
+            alt="Motivation"
+          />
+          <h3>Motivation</h3>
+        </article>
+
+        <article class="feature-card timer">
+          <img
+            src="https://images.unsplash.com/photo-1664994817539-8a865f12dc6c"
+            alt="Study Timer"
+          />
+          <h3>Pomodoro</h3>
+        </article>
+
+        <article class="feature-card goal">
+          <img
+            src="https://images.unsplash.com/photo-1705010662254-97e7d82cd182"
+            alt="Goals"
+          />
+          <h3>Goals</h3>
+        </article>
+
+      </section>
+
+    </div>
+
+  </section>
+
+</main>
 
       <!-- ==========================
      Personalized Task Manager
