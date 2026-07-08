@@ -625,9 +625,6 @@ themeToggle.addEventListener("click", () => {
   dayIcon.classList.toggle("hide");
   nightIcon.classList.toggle("hide");
 
-  console.log(dayIcon);
-  console.log(nightIcon);
-
   if (document.body.classList.contains("dark")) {
     backgroundImage.src = "assets/images/night.jpg";
   } else {

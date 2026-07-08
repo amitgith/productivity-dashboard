@@ -600,8 +600,14 @@ button:hover {
         DAILY PLANNER
 ================================ */
 
+/* ===============================
+        DAILY PLANNER
+================================ */
+
 .daily-planner {
-  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  background: var(--overlay);
+
+  backdrop-filter: blur(15px);
 }
 
 .daily-planner__header {
@@ -615,20 +621,54 @@ button:hover {
 
   margin-bottom: 2rem;
 
-  border-radius: 25px;
+  border-radius: var(--radius);
 
   background: var(--glass-bg);
 
   backdrop-filter: var(--blur);
 
   border: 1px solid var(--glass-border);
+
+  box-shadow: var(--shadow);
 }
 
 .daily-planner__title {
   font-size: 2rem;
 
-  color: white;
+  color: var(--white);
 }
+
+.daily-planner__close {
+  width: 50px;
+
+  height: 50px;
+
+  border: none;
+
+  border-radius: 50%;
+
+  cursor: pointer;
+
+  font-size: 2rem;
+
+  color: var(--white);
+
+  background: var(--glass-bg);
+
+  backdrop-filter: var(--blur);
+
+  border: 1px solid var(--glass-border);
+
+  transition: var(--transition);
+}
+
+.daily-planner__close:hover {
+  background: var(--primary);
+
+  transform: rotate(90deg);
+}
+
+/* Planner Grid */
 
 .daily-planner__grid {
   display: grid;
@@ -641,7 +681,7 @@ button:hover {
 .daily-planner__column {
   padding: 2rem;
 
-  border-radius: 25px;
+  border-radius: var(--radius);
 
   background: var(--glass-bg);
 
@@ -649,12 +689,16 @@ button:hover {
 
   border: 1px solid var(--glass-border);
 
+  box-shadow: var(--shadow);
+
   display: flex;
 
   flex-direction: column;
 
   gap: 1.3rem;
 }
+
+/* Time Slot */
 
 .time-slot {
   display: flex;
@@ -665,7 +709,7 @@ button:hover {
 }
 
 .time-slot label {
-  color: white;
+  color: var(--white);
 
   font-weight: 600;
 }
@@ -673,31 +717,48 @@ button:hover {
 .time-slot input {
   padding: 1rem;
 
-  border-radius: 12px;
-
   border: none;
 
   outline: none;
 
-  background: rgba(255, 255, 255, 0.25);
+  border-radius: 12px;
 
-  color: white;
+  color: var(--white);
+
+  background: rgba(0, 0, 0, 0.35);
+
+  border: 1px solid var(--glass-border);
+
+  transition: var(--transition);
+}
+
+.time-slot input:focus {
+  border-color: var(--primary);
+
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
 }
 
 .time-slot input::placeholder {
-  color: #e2e8f0;
+  color: #cbd5e1;
 }
 
 /* ===============================
         QUOTES MODAL
 ================================ */
 
+/* ===============================
+        QUOTES MODAL
+================================ */
+
 .quotes-modal {
+  min-height: 100vh;
   justify-content: center;
 
   align-items: center;
 
-  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  background: var(--overlay);
+
+  backdrop-filter: blur(15px);
 }
 
 .quotes-modal__close {
@@ -706,7 +767,37 @@ button:hover {
   top: 25px;
 
   right: 25px;
+
+  width: 50px;
+
+  height: 50px;
+
+  border: none;
+
+  border-radius: 50%;
+
+  cursor: pointer;
+
+  font-size: 2rem;
+
+  color: var(--white);
+
+  background: var(--glass-bg);
+
+  backdrop-filter: var(--blur);
+
+  border: 1px solid var(--glass-border);
+
+  transition: var(--transition);
 }
+
+.quotes-modal__close:hover {
+  background: var(--primary);
+
+  transform: rotate(90deg);
+}
+
+/* Quote Card */
 
 .quotes-card {
   width: min(900px, 100%);
@@ -715,7 +806,7 @@ button:hover {
 
   text-align: center;
 
-  border-radius: 30px;
+  border-radius: var(--radius);
 
   background: var(--glass-bg);
 
@@ -724,12 +815,13 @@ button:hover {
   border: 1px solid var(--glass-border);
 
   box-shadow: var(--shadow);
+  margin: auto;
 }
 
 .quotes-card__title {
   font-size: 2.5rem;
 
-  color: white;
+  color: var(--white);
 
   margin-bottom: 2rem;
 }
@@ -741,17 +833,17 @@ button:hover {
 
   line-height: 1.5;
 
-  color: white;
+  color: var(--white);
 
   margin-bottom: 2rem;
 }
 
 .quotes-card__author {
-  color: white;
-
   font-size: 1.3rem;
 
   font-weight: 600;
+
+  color: var(--white);
 }
 
 /* ===============================
@@ -793,8 +885,9 @@ button:hover {
     font-size: 1.4rem;
   }
 }
+
 /* ===============================
-        STUDY WITH ME MODAL
+        STUDY MODAL
 ================================ */
 
 .study-modal {
@@ -810,7 +903,9 @@ button:hover {
 
   padding: 2rem;
 
-  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  background: var(--overlay);
+
+  backdrop-filter: blur(15px);
 
   z-index: 2000;
 }
@@ -834,33 +929,39 @@ button:hover {
 }
 
 .study-modal__title {
-  color: white;
+  font-size: 3rem;
 
-  font-size: 2rem;
-
-  font-weight: 700;
+  color: var(--white);
 }
 
 .study-modal__close {
-  width: 45px;
+  width: 50px;
 
-  height: 45px;
-
-  border-radius: 50%;
+  height: 50px;
 
   border: none;
 
+  border-radius: 50%;
+
   cursor: pointer;
 
-  font-size: 1.5rem;
+  font-size: 2rem;
 
-  color: white;
+  color: var(--white);
 
   background: var(--glass-bg);
 
   backdrop-filter: var(--blur);
 
   border: 1px solid var(--glass-border);
+
+  transition: var(--transition);
+}
+
+.study-modal__close:hover {
+  background: var(--primary);
+
+  transform: rotate(90deg);
 }
 
 /* Study Card */
@@ -872,7 +973,7 @@ button:hover {
 
   text-align: center;
 
-  border-radius: 25px;
+  border-radius: var(--radius);
 
   background: var(--glass-bg);
 
@@ -884,7 +985,7 @@ button:hover {
 }
 
 .study-card__heading {
-  color: white;
+  color: var(--white);
 
   font-size: 2rem;
 
@@ -892,7 +993,7 @@ button:hover {
 }
 
 .study-card__timer {
-  color: white;
+  color: var(--white);
 
   font-size: 5rem;
 
@@ -922,7 +1023,7 @@ button:hover {
 
   cursor: pointer;
 
-  color: white;
+  color: var(--white);
 
   font-weight: 600;
 
@@ -944,34 +1045,30 @@ button:hover {
 .study-card__btn--reset {
   background: #ef4444;
 }
-
 /* ===============================
         GOAL MODAL
 ================================ */
 
 .goal-modal {
   position: fixed;
-
   inset: 0;
 
   display: none;
-
   overflow-y: auto;
 
   padding: 2rem;
 
   background: var(--overlay);
-
   backdrop-filter: blur(15px);
 
   z-index: 2000;
 }
 
+/* Header */
+
 .goal-modal__header {
   display: flex;
-
   justify-content: space-between;
-
   align-items: center;
 
   padding: 1rem 2rem;
@@ -979,17 +1076,45 @@ button:hover {
 
 .goal-modal__title {
   font-size: 3rem;
-
-  color: white;
+  color: var(--white);
 }
+
+.goal-modal__close {
+  width: 50px;
+  height: 50px;
+
+  border: none;
+  border-radius: 50%;
+
+  cursor: pointer;
+
+  font-size: 2rem;
+
+  color: var(--white);
+
+  background: var(--glass-bg);
+  backdrop-filter: var(--blur);
+
+  border: 1px solid var(--glass-border);
+
+  transition: var(--transition);
+}
+
+.goal-modal__close:hover {
+  background: var(--primary);
+  transform: rotate(90deg);
+}
+
+/* Body */
 
 .goal-modal__body {
   display: flex;
-
   gap: 2rem;
 
   padding: 2rem;
 }
+
+/* Form & List */
 
 .goal-form,
 .goal-list {
@@ -1014,11 +1139,11 @@ button:hover {
   width: 60%;
 }
 
+/* Form */
+
 .goal-form__container {
   display: flex;
-
   flex-direction: column;
-
   gap: 1.2rem;
 }
 
@@ -1029,7 +1154,6 @@ button:hover {
   padding: 1rem;
 
   border: none;
-
   outline: none;
 
   border-radius: 15px;
@@ -1039,11 +1163,18 @@ button:hover {
   background: rgba(0, 0, 0, 0.35);
 
   border: 1px solid var(--glass-border);
+
+  transition: var(--transition);
+}
+
+.goal-form__input:focus,
+.goal-form__textarea:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
 }
 
 .goal-form__textarea {
   height: 150px;
-
   resize: none;
 }
 
@@ -1056,25 +1187,29 @@ button:hover {
   padding: 1rem;
 
   border: none;
-
   border-radius: 15px;
+
+  cursor: pointer;
 
   background: var(--primary);
 
   color: white;
 
+  font-size: 1.1rem;
   font-weight: 600;
 
-  cursor: pointer;
+  transition: var(--transition);
+}
+
+.goal-form__submit:hover {
+  background: var(--secondary);
 }
 
 /* Goal Card */
 
 .goal-card {
   display: flex;
-
   justify-content: space-between;
-
   align-items: center;
 
   gap: 1rem;
@@ -1085,9 +1220,9 @@ button:hover {
 
   border-radius: 15px;
 
-  background: rgba(0, 0, 0, 0.35);
-
   color: white;
+
+  background: rgba(0, 0, 0, 0.35);
 
   transition: var(--transition);
 }
@@ -1107,20 +1242,25 @@ button:hover {
 
 .goal-card__buttons {
   display: flex;
-
   gap: 0.8rem;
 }
 
 .goal-card__btn {
-  padding: 0.6rem 1rem;
-
   border: none;
+
+  padding: 0.6rem 1rem;
 
   border-radius: 10px;
 
+  cursor: pointer;
+
   color: white;
 
-  cursor: pointer;
+  transition: var(--transition);
+}
+
+.goal-card__btn:hover {
+  transform: translateY(-2px);
 }
 
 .goal-card .complete-btn {
