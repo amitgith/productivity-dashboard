@@ -216,7 +216,7 @@ main {
 ================================ */
 
 .top-bar {
-  width: 420px;
+  width: min(420px, 100%);
 }
 
 /* ===============================
@@ -535,16 +535,17 @@ main {
 
 .features {
   display: flex;
-
   flex-direction: column;
-
   gap: 1.5rem;
+
   position: absolute;
+  top: 55%;
   right: 5%;
+  transform: translateY(-50%);
 }
 
 .feature-card {
-  width: 110px;
+  width: 100%;
 
   text-align: center;
 
@@ -575,6 +576,64 @@ main {
   color: white;
 
   font-size: 0.95rem;
+}
+
+@media (max-width: 600px) {
+  .features {
+    position: static;
+
+    transform: none;
+
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 1.5rem;
+
+    justify-items: center;
+  }
+
+  .feature-card {
+    width: 100%;
+  }
+
+  .feature-card img {
+    width: 70px;
+    height: 70px;
+  }
+
+  .feature-card h3 {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .features {
+    position: static;
+
+    transform: none;
+
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 2rem;
+
+    margin-top: 2rem;
+  }
+
+  .feature-card {
+    width: 100%;
+  }
+
+  .feature-card img {
+    width: 80px;
+    height: 80px;
+  }
 }
 
 /* ===============================

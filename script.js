@@ -697,16 +697,30 @@ const period = document.getElementById("period");
 // ======================================
 const backgroundImage = document.getElementById("bg-image");
 
+function setBackground(image) {
+  backgroundImage.src = image;
+  localStorage.setItem("background", image);
+}
+
 function updateBackground() {
   const currentHour = new Date().getHours();
 
+  let image;
+
   if (currentHour >= 6 && currentHour < 12) {
-    backgroundImage.src = "assets/images/morning.jpg";
+    image = "assets/images/morning.jpg";
   } else if (currentHour >= 12 && currentHour < 18) {
-    backgroundImage.src = "assets/images/afternoon.jpg";
+    image = "assets/images/afternoon.jpg";
   } else {
-    backgroundImage.src = "assets/images/night.jpg";
+    image = "assets/images/night.jpg";
   }
+
+  setBackground(image);
+}
+const savedBackground = localStorage.getItem("background");
+
+if (savedBackground) {
+  backgroundImage.src = savedBackground;
 }
 
 // ===============================
@@ -717,22 +731,11 @@ const themeToggle = document.getElementById("theme-toggle");
 const dayIcon = document.querySelector(".day");
 const nightIcon = document.querySelector(".night");
 
-// Restore saved theme
 const savedTheme = localStorage.getItem("theme");
-
-if (savedTheme === "dark") {
-  document.body.classList.add("dark");
-  dayIcon.classList.add("hide");
-  nightIcon.classList.remove("hide");
-  backgroundImage.src = "assets/images/night.jpg";
-} else {
-  document.body.classList.remove("dark");
-  dayIcon.classList.remove("hide");
-  nightIcon.classList.add("hide");
-  updateBackground();
-}
+// const savedBackground = localStorage.getItem("background");
 
 // Toggle Theme
+
 themeToggle.addEventListener("click", () => {
   document.body.classList.toggle("dark");
 
@@ -742,7 +745,7 @@ themeToggle.addEventListener("click", () => {
     dayIcon.classList.add("hide");
     nightIcon.classList.remove("hide");
 
-    backgroundImage.src = "assets/images/night.jpg";
+    setBackground("assets/images/night.jpg");
 
     localStorage.setItem("theme", "dark");
   } else {
@@ -754,6 +757,26 @@ themeToggle.addEventListener("click", () => {
     localStorage.setItem("theme", "light");
   }
 });
+
+if (savedTheme === "dark") {
+  document.body.classList.add("dark");
+
+  dayIcon.classList.add("hide");
+  nightIcon.classList.remove("hide");
+} else {
+  document.body.classList.remove("dark");
+
+  dayIcon.classList.remove("hide");
+  nightIcon.classList.add("hide");
+}
+
+// Restore background
+
+if (savedBackground) {
+  backgroundImage.src = savedBackground;
+} else {
+  updateBackground();
+}
 
 // ======================================
 // Digital Clock
@@ -841,6 +864,13 @@ const currentLocationBtn = document.querySelector("#currentLocationBtn");
 // ==============================
 
 async function getWeather(city) {
+  if (!city || city === "undefined") {
+    console.log("Invalid city:", city);
+    return;
+  }
+
+  // console.log("getWeather city:", city);
+
   try {
     const response = await fetch(
       `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${WEATHER_KEY}`,
@@ -854,14 +884,11 @@ async function getWeather(city) {
 
     updateWeatherUI(data);
 
-    localStorage.setItem("selectedCity", data.name);
+    if (data.name) {
+      localStorage.setItem("selectedCity", data.name);
+    }
   } catch (error) {
     console.error(error);
-
-    cityName.textContent = "City not found";
-    temperature.textContent = "--°C";
-    weatherCondition.textContent = "Weather unavailable";
-    humidity.textContent = "Humidity: --";
   }
 }
 
@@ -876,14 +903,19 @@ async function getWeatherByCoords(lat, lon) {
     );
 
     if (!response.ok) {
-      throw new Error("Weather fetch failed");
+      const errorData = await response.json();
+      console.log(errorData);
+
+      throw new Error(errorData.message);
     }
 
     const data = await response.json();
 
     updateWeatherUI(data);
 
-    localStorage.setItem("selectedCity", data.name);
+    if (data.name) {
+      localStorage.setItem("selectedCity", data.name);
+    }
   } catch (error) {
     console.error(error);
   }
@@ -898,7 +930,9 @@ function updateWeatherUI(data) {
 
   temperature.textContent = `${Math.round(data.main.temp)}°C`;
 
-  weatherCondition.textContent = data.weather[0].description;
+  weatherCondition.textContent =
+    data.weather[0].description.charAt(0).toUpperCase() +
+    data.weather[0].description.slice(1);
 
   humidity.textContent = `Humidity: ${data.main.humidity}%`;
 
@@ -914,7 +948,11 @@ function updateWeatherUI(data) {
 searchCityBtn.addEventListener("click", () => {
   const city = cityInput.value.trim();
 
+  console.log("Search city:", city);
+
   if (!city) return;
+
+  localStorage.setItem("selectedCity", city);
 
   getWeather(city);
 
@@ -958,19 +996,20 @@ currentLocationBtn.addEventListener("click", () => {
 document.addEventListener("DOMContentLoaded", () => {
   const savedCity = localStorage.getItem("selectedCity");
 
-  if (savedCity) {
+  if (savedCity && savedCity !== "undefined") {
     getWeather(savedCity);
   } else {
+    localStorage.removeItem("selectedCity");
     currentLocationBtn.click();
   }
 });
-
-updateBackground();
-
-getWeather();
 
 // ======================================
 // Initialize Dashboard
 // ======================================
 
-setInterval(updateBackground, 60000);
+setInterval(() => {
+  if (!document.body.classList.contains("dark")) {
+    updateBackground();
+  }
+}, 60000);
