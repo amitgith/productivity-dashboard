@@ -369,47 +369,66 @@ goalList.addEventListener("click", (event) => {
 // ======================================
 
 const quotesModal = document.querySelector(".quotes-modal");
-
 const quotesBtn = document.querySelector(".motivate");
-
 const quotesCloseBtn = document.querySelector(".quotes-modal__close");
 
 const quoteText = document.querySelector("#quote");
-
 const quoteAuthor = document.querySelector("#author");
+const nextQuoteBtn = document.querySelector(".quotes-card__next");
 
+// ======================================
 // Open Quotes Modal
+// ======================================
 
 quotesBtn.addEventListener("click", () => {
   quotesModal.style.display = "flex";
-
   loadQuote();
 });
 
+// ======================================
 // Close Quotes Modal
+// ======================================
 
 quotesCloseBtn.addEventListener("click", () => {
   quotesModal.style.display = "none";
 });
 
+// Optional: Close when clicking outside the card
+quotesModal.addEventListener("click", (e) => {
+  if (e.target === quotesModal) {
+    quotesModal.style.display = "none";
+  }
+});
+
 // ======================================
 // Quotes API
 // ======================================
+
 const API_KEY = "DXgx56BhRuHTfFaEz13q9IoCxCt4gjlY1YPBPh8F";
 const API_URL = "https://api.api-ninjas.com/v1/quotes";
 
-async function loadQuote() {
-  // Show cached quote immediately
-  const savedQuote = localStorage.getItem("quote");
-  const savedAuthor = localStorage.getItem("author");
+// ======================================
+// Load Quote
+// ======================================
 
-  if (savedQuote && savedAuthor) {
-    quoteText.textContent = savedQuote;
-    quoteAuthor.textContent = `— ${savedAuthor}`;
-  } else {
-    quoteText.textContent = "Loading quote...";
-    quoteAuthor.textContent = "";
+async function loadQuote(showCached = true) {
+  // Show cached quote only when opening the modal/page
+  if (showCached) {
+    const savedQuote = localStorage.getItem("quote");
+    const savedAuthor = localStorage.getItem("author");
+
+    if (savedQuote && savedAuthor) {
+      quoteText.textContent = savedQuote;
+      quoteAuthor.textContent = `— ${savedAuthor}`;
+    }
   }
+
+  // Loading State
+  nextQuoteBtn.disabled = true;
+  nextQuoteBtn.textContent = "Loading...";
+
+  quoteText.textContent = "Loading quote...";
+  quoteAuthor.textContent = "";
 
   try {
     const response = await fetch(API_URL, {
@@ -435,23 +454,45 @@ async function loadQuote() {
     quoteText.textContent = quote;
     quoteAuthor.textContent = `— ${author}`;
 
-    // Save to localStorage
+    // Save in localStorage
     localStorage.setItem("quote", quote);
     localStorage.setItem("author", author);
   } catch (error) {
     console.error("Quote API Error:", error);
 
-    // Show fallback only if nothing is cached
-    if (!savedQuote) {
+    const savedQuote = localStorage.getItem("quote");
+    const savedAuthor = localStorage.getItem("author");
+
+    if (savedQuote && savedAuthor) {
+      quoteText.textContent = savedQuote;
+      quoteAuthor.textContent = `— ${savedAuthor}`;
+    } else {
       quoteText.textContent =
         "Stay positive. Keep learning. Success will follow.";
       quoteAuthor.textContent = "— Unknown";
     }
+  } finally {
+    nextQuoteBtn.disabled = false;
+    nextQuoteBtn.textContent = "Next Quote";
   }
 }
 
-// Load quote when page opens
-document.addEventListener("DOMContentLoaded", loadQuote);
+// ======================================
+// Next Quote Button
+// ======================================
+
+nextQuoteBtn.addEventListener("click", () => {
+  // Don't show cached quote when requesting a new one
+  loadQuote(false);
+});
+
+// ======================================
+// Load Quote on Page Load
+// ======================================
+
+document.addEventListener("DOMContentLoaded", () => {
+  loadQuote();
+});
 
 // ======================================
 // Study With Me Modal
@@ -791,12 +832,18 @@ setInterval(updateClock, 1000);
 
 const WEATHER_KEY = "d73b5a1809a6a9d9b29561cc7d693bf6";
 
-const CITY = "London";
+const cityInput = document.querySelector("#cityInput");
+const searchCityBtn = document.querySelector("#searchCityBtn");
+const currentLocationBtn = document.querySelector("#currentLocationBtn");
 
-async function getWeather() {
+// ==============================
+// Fetch Weather By City
+// ==============================
+
+async function getWeather(city) {
   try {
     const response = await fetch(
-      `https://api.openweathermap.org/data/2.5/weather?q=${CITY}&units=metric&appid=${WEATHER_KEY}`,
+      `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${WEATHER_KEY}`,
     );
 
     if (!response.ok) {
@@ -805,29 +852,118 @@ async function getWeather() {
 
     const data = await response.json();
 
-    cityName.textContent = data.name;
+    updateWeatherUI(data);
 
-    temperature.textContent = `${Math.round(data.main.temp)}°C`;
-
-    weatherCondition.textContent = data.weather[0].description;
-
-    humidity.textContent = `Humidity: ${data.main.humidity}%`;
-
-    weatherIcon.src = `assets/images/weather.png`;
-
-    weatherIcon.alt = data.weather[0].main;
+    localStorage.setItem("selectedCity", data.name);
   } catch (error) {
     console.error(error);
 
-    cityName.textContent = "Unable to load";
-
+    cityName.textContent = "City not found";
     temperature.textContent = "--°C";
-
     weatherCondition.textContent = "Weather unavailable";
-
     humidity.textContent = "Humidity: --";
   }
 }
+
+// ==============================
+// Fetch Weather By Coordinates
+// ==============================
+
+async function getWeatherByCoords(lat, lon) {
+  try {
+    const response = await fetch(
+      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${WEATHER_KEY}`,
+    );
+
+    if (!response.ok) {
+      throw new Error("Weather fetch failed");
+    }
+
+    const data = await response.json();
+
+    updateWeatherUI(data);
+
+    localStorage.setItem("selectedCity", data.name);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// ==============================
+// Update UI
+// ==============================
+
+function updateWeatherUI(data) {
+  cityName.textContent = data.name;
+
+  temperature.textContent = `${Math.round(data.main.temp)}°C`;
+
+  weatherCondition.textContent = data.weather[0].description;
+
+  humidity.textContent = `Humidity: ${data.main.humidity}%`;
+
+  weatherIcon.src = `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
+
+  weatherIcon.alt = data.weather[0].main;
+}
+
+// ==============================
+// Search Button
+// ==============================
+
+searchCityBtn.addEventListener("click", () => {
+  const city = cityInput.value.trim();
+
+  if (!city) return;
+
+  getWeather(city);
+
+  cityInput.value = "";
+});
+
+// ==============================
+// Enter Key
+// ==============================
+
+cityInput.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    searchCityBtn.click();
+  }
+});
+
+// ==============================
+// Current Location
+// ==============================
+
+currentLocationBtn.addEventListener("click", () => {
+  if (!navigator.geolocation) {
+    alert("Geolocation is not supported.");
+    return;
+  }
+
+  navigator.geolocation.getCurrentPosition(
+    (position) => {
+      getWeatherByCoords(position.coords.latitude, position.coords.longitude);
+    },
+    () => {
+      alert("Location permission denied.");
+    },
+  );
+});
+
+// ==============================
+// Initial Load
+// ==============================
+
+document.addEventListener("DOMContentLoaded", () => {
+  const savedCity = localStorage.getItem("selectedCity");
+
+  if (savedCity) {
+    getWeather(savedCity);
+  } else {
+    currentLocationBtn.click();
+  }
+});
 
 updateBackground();
 
